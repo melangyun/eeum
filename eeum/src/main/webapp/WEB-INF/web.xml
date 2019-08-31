@@ -39,8 +39,8 @@
 	
 		<!-- 공용 에러 페이지 등록 -->
 	<error-page>
-<!-- 		<excpeiton-type>java.lang.Exception</excpeiton-type>
-		<location>/WEB-INF/views/common/errorPage.jsp</location>-->
+ 		<excpeiton-type>java.lang.Exception</excpeiton-type>
+		<location>/WEB-INF/views/common/errorPage.jsp</location>
 	</error-page>
 	
 	<!-- 한글 개짐 방지 인코딩 -->

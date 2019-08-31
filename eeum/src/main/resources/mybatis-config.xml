@@ -5,21 +5,19 @@
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
 
-<!-- 	<typeAliases>
-		<typeAlias type="com.kh.spring.member.model.vo.Member"
-			alias="Member" />
-		<typeAlias type="com.kh.spring.board.model.vo.Board"
-			alias="Board" />
-		<typeAlias type="com.kh.spring.board.model.vo.Reply"
-			alias="Reply" />
-		<typeAlias type="com.kh.spring.notice.model.vo.Notice"
-			alias="Notice" />
-	</typeAliases> -->
+	<typeAliases>
+		<typeAlias type="com.spring.finalproject.Employee.model.vo.Employee" alias="Employee" />
+		<typeAlias type="com.spring.finalproject.Approval.model.vo.Approval" alias="Approval" />
+		<typeAlias type="com.spring.finalproject.Attachment.model.vo.Attachment" alias="Attachment" />
+		<typeAlias type="com.spring.finalproject.Board.model.vo.Board" alias="Board" />
+		<typeAlias type="com.spring.finalproject.Education.model.vo.Education" alias="Education" />
+		<typeAlias type="com.spring.finalproject.Mail.model.vo.Mail" alias="Mamil" />
+		<typeAlias type="com.spring.finalproject.Reservation.model.vo.Reservation" alias="Reservation" />
+		<typeAlias type="com.spring.finalproject.Todo.model.vo.Todo" alias="Todo" />
+	</typeAliases>
 
-<!-- 	<mappers>
+	<mappers>
 		<mapper resource="mappers/member-mapper.xml" />
-		<mapper resource="mappers/board-mapper.xml" />
-		<mapper resource="mappers/notice-mapper.xml" />
-	</mappers> -->
+	</mappers>
 
 </configuration>
