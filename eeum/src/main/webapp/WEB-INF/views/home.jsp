@@ -13,7 +13,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Dashboard</title>
+  <title>GroupWare</title>
 <%-- <jsp:include page="/WEB-INF/views/home.jsp" flush="false"></jsp:include> --%>
   <!-- Custom fonts for this template-->
   <link href="${contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -21,7 +21,7 @@
 
   <!-- Custom styles for this template-->
   <link href="${contextPath}/resources/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
-
+  <script src="https://kit.fontawesome.com/fbd170e696.js"></script>
 </head>
 
 <body id="page-top">
@@ -37,19 +37,19 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+          <i class="fa fa-paper-plane-o"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">E-Eum<sup>sys</sup></div>
       </a>
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
+      <!-- 홈 -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
+        <a class="nav-link" href="index.jsp">
+          <i class="fas fa-fw fa-home"></i>
+          <span>Home</span></a>
       </li>
 
       <!-- Divider -->
@@ -57,33 +57,67 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        Interface
+        Common
       </div>
 
-      <!-- Nav Item - Pages Collapse Menu -->
+      <!-- 조직도 -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Components</span>
+          <i class="fas fa-fw fa fa-sitemap"></i>
+          <span>조직도</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
+            <h6 class="collapse-header">Custom Organization:</h6>
             <a class="collapse-item" href="buttons.html">Buttons</a>
             <a class="collapse-item" href="cards.html">Cards</a>
           </div>
         </div>
       </li>
 
-      <!-- Nav Item - Utilities Collapse Menu -->
+      <!-- 공지사항 -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
+          <i class="fas fa-fw fa fa-bullhorn"></i>
+          <span>공지사항</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
+            <h6 class="collapse-header">Custom Notice:</h6>
+            <a class="collapse-item" href="utilities-color.html">Colors</a>
+            <a class="collapse-item" href="utilities-border.html">Borders</a>
+            <a class="collapse-item" href="utilities-animation.html">Animations</a>
+            <a class="collapse-item" href="utilities-other.html">Other</a>
+          </div>
+        </div>
+      </li>
+      
+      <!-- 교육  -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEdu" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-fw fa fa-laptop"></i>
+          <span>교육</span>
+        </a>
+        <div id="collapseEdu" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Notice:</h6>
+            <a class="collapse-item" href="utilities-color.html">Colors</a>
+            <a class="collapse-item" href="utilities-border.html">Borders</a>
+            <a class="collapse-item" href="utilities-animation.html">Animations</a>
+            <a class="collapse-item" href="utilities-other.html">Other</a>
+          </div>
+        </div>
+      </li>
+      
+       <!-- 회의실  -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Room" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-fw fa fa-coffee"></i>
+          <span>회의실</span>
+        </a>
+        <div id="Room" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Custom Notice:</h6>
             <a class="collapse-item" href="utilities-color.html">Colors</a>
             <a class="collapse-item" href="utilities-border.html">Borders</a>
             <a class="collapse-item" href="utilities-animation.html">Animations</a>
@@ -94,17 +128,26 @@
 
       <!-- Divider -->
       <hr class="sidebar-divider">
-
+	
+	
+	<!-- 개인메뉴  -->
       <!-- Heading -->
       <div class="sidebar-heading">
-        Addons
+        Personal
       </div>
-
-      <!-- Nav Item - Pages Collapse Menu -->
+	
+	<!--전자 결재 fa-file-text-o  -->
+      <li class="nav-item">
+        <a class="nav-link" href="tables.html">
+          <i class="fas fa-fw fa fa-file-text-o "></i>
+          <span>전자결재</span></a>
+      </li>
+	
+      <!-- 이메일 -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Pages</span>
+          <i class="fas fa-fw fa fa-envelope-o"></i>
+          <span>이메일</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
@@ -120,24 +163,40 @@
         </div>
       </li>
 
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
-      </li>
 
-      <!-- Nav Item - Tables -->
+      <!-- 일정 -->
       <li class="nav-item">
         <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span></a>
+          <i class="fas fa-fw fa fa-calendar"></i>
+          <span>일정</span></a>
       </li>
-
+		
+	     <!-- to-do -->
+      <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-fw fa fa-list-alt"></i>
+          <span>to-do</span></a>
+      </li>
+	
+   	<!-- 관리자 영역 -->
+      <hr class="sidebar-divider d-none d-md-block">
+      
+     <!-- Heading -->
+      <div class="sidebar-heading">
+        Management
+      </div>
+      
+      
+	<li class="nav-item">
+        <a class="nav-link" href="charts.html">
+          <i class="fas fa-fw fa fa-users"></i>
+          <span>인사관리</span></a>
+      </li>
+		
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
 
-      <!-- Sidebar Toggler (Sidebar) -->
+      <!-- 슬라이드 버튼 -->
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div>
@@ -154,12 +213,7 @@
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-primary topbar mb-4 static-top shadow">
 
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
-
-          <!-- Topbar Search -->
+          <!-- 검색영역 -->
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
               <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
@@ -171,7 +225,7 @@
             </div>
           </form>
 
-          <!-- Topbar Navbar -->
+          <!-- 우측 알람 아이콘들 -->
           <ul class="navbar-nav ml-auto">
 
             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -242,7 +296,8 @@
                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
               </div>
             </li>
-            <!-- 설정 아이콘바  -->
+            
+            <!-- 설정 아이콘  -->
             <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-envelope fa-fw"></i>
@@ -380,15 +435,14 @@
           </ul>
 
         </nav>
-        <!-- End of Topbar -->
+        <!-- 상단바 영역 끝! -->
 
-        <!-- Begin Page Content -->
+        <!-- 페이지 컨텐츠 -->
         <div class="container-fluid">
 
-          <!-- Page Heading -->
+          <!-- 타이틀 영역 -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            <h1 class="h3 mb-0 text-gray-800">Home</h1>
           </div>
 
           <!-- Content Row -->
@@ -455,7 +509,7 @@
             </div>
 
             <!-- Pending Requests Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4">
+<!--             <div class="col-xl-3 col-md-6 mb-4">
               <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
@@ -470,6 +524,23 @@
                 </div>
               </div>
             </div>
+            
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-comments fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div> -->
+            
           </div>
 
           <!-- Content Row -->
