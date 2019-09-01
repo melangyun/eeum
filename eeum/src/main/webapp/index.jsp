@@ -6,11 +6,18 @@
 <html lang="kor">
 
 <head>
-  <title>SB Admin 2 - Dashboard</title>
+  <title></title>
 </head>
 <body id="page-top">
-	<jsp:include page="/WEB-INF/views/home.jsp" flush="false"></jsp:include>
-	<!--로그인 상태가 아니라면 로그인 페이지로, 로그인 상태라면 홈페이지로 보내기  -->
+	<!--ContextPath 설정 -->
+	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
+	<c:if test="${empty sessionScope.loginEmp}">
+		<jsp:include page="/WEB-INF/views/common/login.jsp" flush="false"></jsp:include>
+	</c:if>
+	<c:if test="${!empty sessionScope.loginEmp}">
+		<jsp:include page="/WEB-INF/views/home.jsp" flush="false"></jsp:include>
+	</c:if>
+	
 </body>
 
 </html>

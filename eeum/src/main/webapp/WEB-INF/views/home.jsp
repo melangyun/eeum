@@ -1,145 +1,66 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" %>
+<%@ page language="java" contentType= "text/html; charset=UTF-8" pageEncoding= "UTF-8" %>
 <!DOCTYPE html>
 <html lang="kor">
-
 <head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <title>GroupWare</title>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
-	charset="utf-8"></script>
-<style type="text/css">
-*{
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
-  font-family: montserrat;
-  box-sizing: border-box;
-}
+<!-- Custom fonts for this template-->
+<link href="${contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-body{
-  min-height: 100vh;
-  background-image: linear-gradient(120deg, #71698B,rgb(20,20,50));
-}
+<!-- Bootstrap core JavaScript-->
+<script	src="${contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>
+<script	src="${contextPath}/resources/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-.login-form{
-  width: 360px;
-  background: #f1f1f1;
-  height: 580px;
-  padding: 80px 40px;
-  border-radius: 10px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%,-50%);
-}
+<!-- Core plugin JavaScript-->
+<script src="${contextPath}/resources/bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-.login-form h1{
-  text-align: center;
-  margin-bottom: 60px;
-}
+<!-- Custom scripts for all pages-->
+<script src="${contextPath}/resources/bootstrap/js/sb-admin-2.min.js"></script>
 
-.txtb{
-  border-bottom: 2px solid #adadad;
-  position: relative;
-  margin: 30px 0;
-}
+<!-- Page level plugins -->
+<script src="${contextPath}/resources/bootstrap/vendor/chart.js/Chart.min.js"></script>
 
-.txtb input{
-  font-size: 15px;
-  color: #333;
-  border: none;
-  width: 100%;
-  outline: none;
-  background: none;
-  padding: 0 5px;
-  height: 40px;
-}
+<!-- Page level custom scripts -->
+<script src="${contextPath}/resources/bootstrap/js/demo/chart-area-demo.js"></script>
+<script src="${contextPath}/resources/bootstrap/js/demo/chart-pie-demo.js"></script>
 
-.txtb span::before{
-  content: attr(data-placeholder);
-  position: absolute;
-  top: 50%;
-  left: 5px;
-  color: #adadad;
-  transform: translateY(-50%);
-  z-index: -1;
-  transition: .5s;
-}
-
-.txtb span::after{
-  content: '';
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  background: linear-gradient(120deg, #71698B,rgb(20,20,50));
-  transition: .5s;
-}
-
-.focus + span::before{
-  top: -5px;
-}
-.focus + span::after{
-  width: 100%;
-}
-
-.logbtn{
-  display: block;
-  width: 100%;
-  height: 50px;
-  border: none;
-  background: linear-gradient(120deg, #71698B,rgb(20,20,50), #71698B);
-  background-size: 200%;
-  color: #fff;
-  outline: none;
-  cursor: pointer;
-  transition: .5s;
-}
-
-.logbtn:hover{
-  background-position: right;
-}
-
-.bottom-text{
-  margin-top: 60px;
-  text-align: center;
-  font-size: 13px;
-}
-
-</style>
+<!-- Custom styles for this template-->
+<link href="${contextPath}/resources/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/fbd170e696.js"></script>
 </head>
-<body>
-	<form action="" class="login-form">
-		<h1>Login</h1>
 
-		<div class="txtb">
-			<input type="text"> <span data-placeholder="Username"></span>
+<body id="page-top">
+
+	<!-- 메인레버 -->
+	<div id="wrapper">
+		<!-- 사이드바 -->
+		<jsp:include page="/WEB-INF/views/common/sidebar.jsp" flush="false"></jsp:include>
+		<!-- 상단바 -->
+		<jsp:include page="/WEB-INF/views/common/topbar.jsp" flush="false"></jsp:include>
+
+		<!-- 컨텐츠 영역 -->
+		<div class="container-fluid">
+			<!-- 타이틀 영역 -->
+			<div
+				class="d-sm-flex align-items-center justify-content-between mb-4">
+				<h1 class="h3 mb-0 text-gray-800">Home</h1>
+			</div>
+
+
+
+
 		</div>
 
-		<div class="txtb">
-			<input type="password"> <span data-placeholder="Password"></span>
-		</div>
+	</div>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp" flush="false"></jsp:include>
 
-		<input type="submit" class="logbtn" value="Login" style="font-weight: bold;">
-
-		<div class="bottom-text">
-			Don't have account? <a href="#">Sign up</a>
-		</div>
-
-	</form>
-
-	<script type="text/javascript">
-		$(".txtb input").on("focus", function() {
-			$(this).addClass("focus");
-		});
-
-		$(".txtb input").on("blur", function() {
-			if ($(this).val() == "")
-				$(this).removeClass("focus");
-		});
-	</script>
 </body>
 
 </html>
