@@ -7,17 +7,14 @@
 
 	<typeAliases>
 		<typeAlias type="com.spring.finalproject.Employee.model.vo.Employee" alias="Employee" />
-<!-- 		<typeAlias type="com.spring.finalproject.Approval.model.vo.Approval" alias="Approval" />
-		<typeAlias type="com.spring.finalproject.Attachment.model.vo.Attachment" alias="Attachment" />
 		<typeAlias type="com.spring.finalproject.Board.model.vo.Board" alias="Board" />
-		<typeAlias type="com.spring.finalproject.Education.model.vo.Education" alias="Education" />
-		<typeAlias type="com.spring.finalproject.Mail.model.vo.Mail" alias="Mamil" />
-		<typeAlias type="com.spring.finalproject.Reservation.model.vo.Reservation" alias="Reservation" />
-		<typeAlias type="com.spring.finalproject.Todo.model.vo.Todo" alias="Todo" /> -->
+		<typeAlias type="com.spring.finalproject.Mail.model.vo.Mail" alias="Mail" />
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="mappers/employee-mapper.xml" />
+		<mapper resource="mappers/board-mapper.xml" />
+		<mapper resource="mappers/mail-mapper.xml" />
 	</mappers>
 
 </configuration>
