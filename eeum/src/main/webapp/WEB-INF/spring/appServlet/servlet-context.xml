@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+<beans:beans
+	xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
@@ -7,42 +8,65 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	
+	<!-- DispatcherServlet Context: defines this servlet's request-processing 
+		infrastructure -->
+
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
-	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-	<!-- jsp 연동하기 위해 사용 -->
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
+		in the /WEB-INF/views directory -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- jsp 연동하기 위해 사용 -->
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+
+	<context:component-scan
+		base-package="com.spring.finalproject" />
+
+	<!-- ajax에서 ModelAndView를 이용한 방식을 사용하기 위해 빈 등록 -->
+	<beans:bean id="jsonView"
+		class="net.sf.json.spring.web.servlet.view.JsonView" />
+	<!-- id는 setViewName에서 지정한 값 -->
+	<!-- jsonView lib pom.xml에서 설정 -->
+	<beans:bean id="viewResolver"
+		class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<beans:property name="order" value="0" />
+	</beans:bean>
+
+	<!-- 로그 사용부 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/**" />
+			<beans:bean id="LoggerInterceptor"
+				class="com.spring.finalproject.common.interceptor.LoggerInterceptor" />
+		</interceptor>
+
+		<interceptor>
+			<mapping path="/blist.do" />
+			<beans:bean id="LoginInterceptor"
+				class="com.spring.finalproject.common.interceptor.LoginInterceptor" />
+		</interceptor>
+	</interceptors>
 	
-	<context:component-scan base-package="com.spring.finalproject" />
+<!-- 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="melangyun@gmail.com" />
+		<property name="password" value="yunjeong0!" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean> -->
 	
-		  <!-- ajax에서 ModelAndView를 이용한 방식을 사용하기 위해 빈 등록 -->
-	   <beans:bean id="jsonView" class="net.sf.json.spring.web.servlet.view.JsonView"/>
-	   <!-- id는 setViewName에서 지정한 값 -->
-	   <!-- jsonView lib pom.xml에서 설정 -->  
-	   <beans:bean id="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
-	      <beans:property name="order" value="0"/>
-	   </beans:bean>	
-	
-		<!-- 로그 사용부 -->
-				<interceptors>
-			<interceptor>
-				<mapping path="/**"/>
-				<beans:bean id="LoggerInterceptor" class="com.spring.finalproject.common.interceptor.LoggerInterceptor"/>
-			</interceptor>
-			
-			<interceptor>
-				<mapping path="/blist.do"/>
-				<beans:bean id="LoginInterceptor" class="com.spring.finalproject.common.interceptor.LoginInterceptor"/>
-			</interceptor>
-		</interceptors>	
-		
+
 </beans:beans>

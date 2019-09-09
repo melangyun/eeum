@@ -10967,7 +10967,7 @@ a:focus {
 }
 
 .border-bottom-primary {
-  border-bottom: .25rem solid #4e73df !important
+  border-bottom: .25rem solid rgb(20,20,50) !important
 }
 
 .border-left-secondary {
