@@ -10,6 +10,7 @@
 		<typeAlias type="com.spring.finalproject.Board.model.vo.Board" alias="Board" />
 		<typeAlias type="com.spring.finalproject.Mail.model.vo.Mail" alias="Mail" />
 		<typeAlias type="com.spring.finalproject.Todo.model.vo.Todo" alias="Todo" />
+		<typeAlias type="com.spring.finalproject.Approval.model.vo.Approval" alias="Approval" />
 	</typeAliases>
 
 	<mappers>
@@ -17,6 +18,7 @@
 		<mapper resource="mappers/board-mapper.xml" />
 		<mapper resource="mappers/mail-mapper.xml" />
 		<mapper resource="mappers/todo-mapper.xml" />
+		<mapper resource="mappers/approval-mapper.xml" />
 	</mappers>
 
 </configuration>
