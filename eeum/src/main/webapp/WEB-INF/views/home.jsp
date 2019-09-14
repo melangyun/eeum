@@ -34,6 +34,8 @@
 <!-- Custom styles for this template-->
 <link href="${contextPath}/resources/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/fbd170e696.js"></script>
+<link href="${contextPath}/resources/flipClock/flipclock.css"rel="stylesheet" type="text/css">
+<script	src="${contextPath}/resources/flipClock/flipclock.js"></script>
 </head>
 
 <body id="page-top">
@@ -48,11 +50,9 @@
 		<!-- 컨텐츠 영역 -->
 		<div class="container-fluid">
 			<!-- 타이틀 영역 -->
-			<div
-				class="d-sm-flex align-items-center justify-content-between mb-4">
-				<h1 class="h3 mb-0 text-gray-800">Home</h1>
+			<div class="d-sm-flex align-items-center justify-content-between mb-4">
+			<div class="clock" style="display: inline-block; margin-left: auto;margin-right: auto;"></div>
 			</div>
-
 
 
 
@@ -60,7 +60,11 @@
 
 	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" flush="false"></jsp:include>
-
+    <script type="text/javascript">
+	var clock = $('.clock').FlipClock({
+		clockFace: 'TwelveHourClock'
+	});
+</script>
 </body>
 
 </html>
