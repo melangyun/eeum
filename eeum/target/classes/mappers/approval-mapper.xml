@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="aMapper">
+	<insert id="insertApproval" parameterType="Approval">
+		insert into APPROVAL 
+		values(#{empNo}||SEQ_APPROVAL.nextval,
+				#{empNo}, 
+				#{apTitle}, 
+				#{apContent}, 
+				#{approvalEmp}, 
+				#{runEmp},
+				#{refEmp}, 
+				sysdate, 
+				null, 
+				#{dDate}, 
+				default, 
+				null, 
+				null, 
+				#{originalFile}, 
+				#{renameFile}, 
+				#{hEmp})
+	</insert>
+	
+	<select id="selectApprovalList" parameterType="string" resultType="Approval">
+		select *
+		from APPROVAL
+		where (EMPNO like #{empno}
+		or APPROVALEMP like #{empno}
+		or RUNEMP like #{empno}
+		or REFEMP like #{empno}
+		or HEMP like #{empno}
+		)and APSTATUS!='N'
+	</select>
+	
+	<select id="selectApprovalDetail" parameterType="string" resultType="Approval">
+		select *
+		from APPROVAL
+		where APNO =#{apNo}
+	</select>
+	
+	<update id="updateAp" parameterType="Approval">
+		update APPROVAL
+		set hEmp=#{hEmp}, approvalEmp=#{approvalEmp}, apStatus=#{apStatus}
+		<if test="!apStatus.equals('Y')">
+		, FIDATE = sysdate
+		</if>
+		where apNo=#{apNo}
+	</update>
+ 	<select id="selectApListByAr" resultType="Approval">
+		select *
+		from APPROVAL
+		where APNO in
+		 <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+		    #{item}
+		</foreach>
+	</select>
+	<update id="deleteAp" parameterType="string">
+		update APPROVAL
+		set APSTATUS='N'
+		where apNo = #{apNo}
+	</update>	
+</mapper>

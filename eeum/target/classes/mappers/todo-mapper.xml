@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="tMapper">
+	<insert id="insertTodo" parameterType="Todo">
+		insert into todo
+		values (seq_todo.nextval, #{empNo}, #{tImport}, sysdate, default, #{tContent}, null, #{tTitle})
+	</insert>
+	
+	<select id="selectTodo" parameterType="map" resultType="Todo">
+		select *
+		from todo
+		where empno=#{empNo}
+		<if test="searchKey == null">
+			AND (
+			(TDATE between trunc(sysdate)-7 and trunc(sysdate+1) and TSTATUS='D')
+			OR
+			(TSTATUS='Y')
+			)
+		</if>
+		and (
+		TCONTENT like #{searchKey}
+		or TTITLE like #{searchKey}
+		)
+		and (TSTATUS!='R')
+	</select>
+	
+	<select id="selectCountTotal" parameterType="string" resultType="Todo">
+		select *
+		from todo
+		where empno=#{empNo}
+	</select>
+	
+	<select id="selectRegistration" parameterType="string" resultType="_int">
+		select count(*)
+		from todo
+		where (TDATE between trunc(sysdate)-7 and trunc(sysdate)+1) and empno=#{empNo}
+	</select>
+	
+	<select id="selectDone" parameterType="string" resultType="_int">
+		select count(*)
+		from todo
+		where (TDONE between trunc(sysdate)-7 and trunc(sysdate)+1) and empno=#{empNo} and TSTATUS ='D' 
+		OR (TDONE between trunc(sysdate)-7 and trunc(sysdate)+1) and empno=#{empNo} and TSTATUS ='R'
+	</select>
+	
+	<update id="updateTodo" parameterType="Todo">
+		update todo
+		set TSTATUS=#{tStatus}, TDONE = SYSDATE
+		where tno =#{tNo}
+	</update>
+	
+	<select id="selectTNo" parameterType="Todo" resultType="_int">
+		select max(tno)
+		from todo
+		where empNo=#{empNo} and tImport=#{tImport} and tContent =#{tContent} and tTitle=#{tTitle} and TDONE is null
+	</select>
+	
+</mapper>

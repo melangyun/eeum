@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mMapper">
+	<select id="searchEmp" resultType="Employee" parameterType="string">
+		select *
+		from EMPLOYEE
+		JOIN DEPARTMENT USING (DEPTNO)
+		where EMPSTATUS='Y'AND 
+		(
+		EMPNAME like #{search} 
+		or EMPNO like #{search}
+		or DEPTNO like #{search}
+		)
+	</select>
+	
+	<insert id="sendEmail" parameterType="Mail">
+		insert into email
+		values (seq_email.nextval,#{empNo}, #{recieveEmp}, #{eType}, #{eTitle},#{eContent},default,null,sysdate,#{recieveEmpName})
+	</insert>
+	
+	<select id="SearchMListCount" parameterType="map" resultType="_int">
+		select count(*)
+		from EMAIL
+		join EMPLOYEE using(empno)
+		where ESTATUS = #{eStatus}
+		and RECIEVEEMP like #{empNo}
+		and (
+		EMPNAME LIKE #{searchKey}
+		OR ETITLE LIKE #{searchKey}
+		OR ECONTENT LIKE #{searchKey}
+		)
+		<if test="cate != null and cate.equals('unRead')">
+		and ERTIME IS NULL
+		</if>
+	</select>
+	
+	<select id="selectMSearchList" parameterType="map" resultType="Mail">
+		select *
+		from EMAIL
+		join EMPLOYEE using(empno)
+		where ESTATUS = #{eStatus}
+		and RECIEVEEMP like #{empNo}
+		and (
+		EMPNAME LIKE #{searchKey}
+		OR ETITLE LIKE #{searchKey}
+		OR ECONTENT LIKE #{searchKey}
+		)
+		<if test="cate != null and cate.equals('unRead')">
+		and ERTIME IS NULL
+		</if>
+		<if test='cate != null and cate.equals("DESC")'>
+		order by SENDTIME DESC
+		</if>
+		<if test='cate != null and cate.equals("ASC")'>
+		order by SENDTIME ASC
+		</if>
+		<if test="cate == null">
+		order by SENDTIME DESC
+		</if>
+	</select>
+	
+	<update id="updateMail" parameterType="Mail">
+		update EMAIL
+		set eStatus = #{eStatus}
+		where mailNo = #{mailNo}
+	</update>
+	
+	<update id="updateReadTime" parameterType="string">
+		update EMAIL
+		set ERTIME = TO_DATE(SYSDATE,'RRRR/mm/dd hh24:mi:ss')
+		where mailNo = #{mailNo}
+	</update>
+	
+	<select id="SearchBListCount" parameterType="map" resultType="_int">
+		select count(*)
+		from EMAIL
+		join EMPLOYEE using(empno)
+		where ESTATUS = #{eStatus}
+		and EMPNO = #{empNo}
+		and (
+		EMPNAME LIKE #{searchKey}
+		OR ETITLE LIKE #{searchKey}
+		OR ECONTENT LIKE #{searchKey}
+		)
+		<if test="cate != null and cate.equals('unRead')">
+		and ERTIME IS NOT NULL
+		</if>
+	</select>
+	
+	<select id="selectBSearchList" parameterType="map" resultType="Mail">
+		select *
+		from EMAIL
+		join EMPLOYEE using(empno)
+		where ESTATUS = #{eStatus}
+		and EMPNO = #{empNo}
+		and (
+		EMPNAME LIKE #{searchKey}
+		OR ETITLE LIKE #{searchKey}
+		OR ECONTENT LIKE #{searchKey}
+		)
+		<if test="cate != null and cate.equals('unRead')">
+		and ERTIME IS NOT NULL
+		</if>
+		<if test='cate != null and cate.equals("DESC")'>
+		order by SENDTIME DESC
+		</if>
+		<if test='cate != null and cate.equals("ASC")'>
+		order by SENDTIME ASC
+		</if>
+		<if test="cate == null">
+		order by SENDTIME DESC
+		</if>
+		
+	</select>
+	
+</mapper>

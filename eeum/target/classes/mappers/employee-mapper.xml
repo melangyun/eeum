@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="empMapper">
+	
+	<select id="oSelectO" resultType="Employee">
+		select *
+		from DEPARTMENT
+	</select>
+	
+	<select id="selectDeptName" resultType="string">
+		select deptname
+		from DEPARTMENT
+		where deptno = #{deptNo}
+	</select>
+	
+	<insert id="insertDept">
+		insert into DEPARTMENT values(#{deptNo}, #{deptName})
+	</insert>
+	
+	<select id="selectEmp" parameterType="Employee" resultType="Employee">
+        select *
+		from EMPLOYEE
+		JOIN DEPARTMENT USING (DEPTNO)
+		where EMPNO=#{empNo} AND EMPSTATUS='Y'
+	</select>
+	
+	<insert id="insertEmp" parameterType="Employee">
+		insert into EMPLOYEE
+		values (#{deptNo}||seq_emp.nextval,#{empName},#{deptNo},#{empPosition},#{joinDate},#{phone},#{empphone},#{email},#{address},default,default,'password')
+	</insert>
+	
+	<select id="selectNewEmp" resultType="string">
+		select empno
+		from EMPLOYEE
+		where (empname = #{empName} and deptno = #{deptNo} and empPosition=#{empPosition} and joindate = #{joinDate} and email = #{email} and address = #{address} and empstatus = 'Y')
+	</select>
+	
+	<update id="updateEmpPwd">
+		update EMPLOYEE
+		set password =#{password}
+		where empNo = #{empNo}
+	</update>
+	
+	<select id="selectListCount" resultType="_int">
+		select count(*)
+		from EMPLOYEE
+		where EMPSTATUS = 'Y'
+		AND DEPTNO != 'MMMMM'
+		<if test="cate != null">
+			AND	DEPTNO = #{deptNo}
+		</if>
+	</select>
+	
+	<select id="selectEmpList" resultType="Employee">
+		select *
+		from EMPLOYEE
+		JOIN DEPARTMENT USING (DEPTNO)
+		where EMPSTATUS = 'Y'
+		AND DEPTNO != 'MMMMM'
+		<if test="cate != null">
+			AND	DEPTNO = #{deptNo}
+		</if>
+		ORDER BY EMPPOSITION DESC
+	</select>
+	
+	<select id="SearchListCount" resultType="_int">
+		select count(*)
+		from EMPLOYEE
+		JOIN DEPARTMENT USING (DEPTNO)
+		where EMPSTATUS = 'Y'
+		AND DEPTNO != 'MMMMM'
+		AND
+		(
+		DEPTNO LIKE #{search}
+		OR DEPTNAME LIKE #{search}		
+		OR EMPNAME LIKE #{search}
+		OR PHONE LIKE #{search}
+		OR EMPPHONE LIKE #{search}
+		OR EMPNO LIKE #{search}
+		OR EMAIL LIKE #{search}
+		)
+	</select>
+	
+	<select id="selectSearchList" resultType="Employee">
+		select *
+		from EMPLOYEE
+		JOIN DEPARTMENT USING (DEPTNO)
+		where EMPSTATUS = 'Y'
+		AND DEPTNO != 'MMMMM'
+		AND
+		( DEPTNO LIKE #{search}
+		OR DEPTNAME LIKE #{search}		
+		OR EMPNAME LIKE #{search}
+		OR PHONE LIKE #{search}
+		OR EMPPHONE LIKE #{search}
+		OR EMPNO LIKE #{search}
+		OR EMAIL LIKE #{search}
+		)
+	</select>
+	
+	<update id="updateEmp" parameterType="Employee">
+		update EMPLOYEE
+		set EMPNAME=#{empName},DEPTNO=#{deptNo},EMPPOSITION=#{empPosition},PHONE=#{phone},EMPPHONE=#{empphone},EMAIL=#{email},ADDRESS=#{address}
+		where empNo = #{empNo}
+	</update>
+	
+	<update id="deleteEmp" parameterType="string">
+		update EMPLOYEE
+		set EMPSTATUS='N'
+		where empNo = #{empNo}
+	</update>
+	
+		
+	<update id="changePwd" parameterType="map">
+		update EMPLOYEE
+		set PASSWORD = #{pwd}
+		where empNo = #{empNo}
+	</update>
+	
+	<select id="getEmployee" parameterType="string" resultType="Employee">
+		select *
+		from EMPLOYEE
+		JOIN DEPARTMENT USING (DEPTNO)
+		where DEPTNO=#{DEPTNO} AND EMPSTATUS='Y'
+	</select>
+	
+</mapper>

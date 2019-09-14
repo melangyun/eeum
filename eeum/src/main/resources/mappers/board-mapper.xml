@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="bMapper">
+	<select id="iSelectList" resultType="Board">
+		select *
+		from BOARD
+		JOIN EMPLOYEE USING(EMPNO)
+		WHERE BSTATUS = 'Y' AND BTYPE='I'
+		ORDER BY BDATE DESC
+	</select>
+	
+	<insert id="boardInsert" parameterType="Board">
+		insert into BOARD values (seq_board.nextval,#{empNo},#{bType},#{bTitle},#{bContent},default,default,default,null)
+	</insert>
+	
+	<select id="getBListCount" resultType="_int">
+		select count(*)
+		from Board
+		where BSTATUS = 'Y' and BTYPE='B'
+	</select>
+	
+	<select id="bSelectList" resultType="Board">
+		select *
+		from board
+		join EMPLOYEE using(empno)
+		where bstatus='Y' and BTYPE='B'
+		order by BDATE desc
+	</select>
+	
+	<select id="selectBoard" resultType="Board">
+		select *
+		from board
+		join EMPLOYEE using(empno)
+		where bNo = #{bNo}
+	</select>
+	
+	<update id="addBoardCount" parameterType="_int">
+		update board
+		set BCOUNT=BCOUNT+1
+		where bNo = #{bNo}
+	</update>
+	
+	<update id="changebType" parameterType="Board">
+		update board
+		set btype=#{bType}
+		where bNo = #{bNo}
+	</update>
+	
+	<update id="boardUpdat">
+		update board
+		set btype=#{bType},BTITLE=#{bTitle},MODIFYDATE = sysdate
+		where bNo=#{bNo}
+	</update>
+	
+	<update id="deleteBoard">
+		update board
+		set bstatus='N'
+		where bNo = #{bNo}
+	</update>
+	
+	<select id="SearchListCount" resultType="_int" parameterType="map">
+		select count(*)
+		from board
+		join EMPLOYEE using(empno)
+		where BSTATUS='Y'
+		and (
+		BCONTENT LIKE #{searchKey}
+		or BTITLE LIKE #{searchKey}
+		or EMPNO LIKE #{searchKey}
+		or EMPNAME LIKE #{searchKey}
+		)
+	</select>
+	
+	<select id="selectSearchList" resultType="Board" parameterType="map">
+		select *
+		from board
+		join EMPLOYEE using(empno)
+		where BSTATUS='Y'
+		and (
+		BCONTENT LIKE #{searchKey}
+		or BTITLE LIKE #{searchKey}
+		or EMPNO LIKE #{searchKey}
+		or EMPNAME LIKE #{searchKey}
+		)
+		<if test='cate != null and cate.equals("countDesc")'>
+		order by BCOUNT DESC
+		</if>
+		<if test='cate != null and cate.equals("DateDesc")'>
+		order by BDATE DESC
+		</if>
+		<if test='cate != null and cate.equals("DateASC")'>
+		order by BDATE ASC
+		</if>
+		<if test="cate == null">
+		order by BNO ASC
+		</if>
+	</select>
+	
+</mapper>
