@@ -88,6 +88,13 @@
       margin-right: auto;
       text-align: center;
     }
+    .bgClass{
+    	background: rgb(245,245,245);
+    }
+    
+  tbody tr:hover{
+    background:rgba(150,210,255,0.1);
+    }
   </style>
 </head>
 
@@ -334,6 +341,10 @@
         <!-- 받은 메일함 끝  -->
         <script type="text/javascript">
 			$(".mailDeatil").click(function(){
+				$("tr").removeClass("bgClass");
+				$(this).closest("tr").addClass("bgClass");
+				
+				
 				var mailNo = $(this).siblings(".mailNo").val();
 				var empName = $(this).siblings(".empName").val();
 				var eTitle = $(this).siblings(".eTitle").val();

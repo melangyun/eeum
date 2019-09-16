@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType= "text/html; charset=UTF-8" pageEncoding= "UTF-8" %>
 <!DOCTYPE html>
 <html lang="kor">
@@ -87,6 +88,14 @@
       margin-right: auto;
       text-align: center;
     }
+    
+    .bgClass{
+	background: rgb(245,245,245);
+    }
+    
+    tbody tr:hover{
+    background:rgba(150,210,255,0.1);
+    }
   </style>
 </head>
 
@@ -116,7 +125,7 @@
             </div>
             <div class="card-body">
               <div style="margin-bottom: 1em;">
-                <form action="mailReceive.do" autocomplete="off" style="display: inline-block; width:50%;">
+                <form action="mailSendView.do" autocomplete="off" style="display: inline-block; width:50%;">
                   <input type="search" name="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable" style="display: inline-block; width: 50%">
                   <input type="submit" class="btn" value="검색" style="border: 1px solid lightgray">
                   <input type="hidden" name="cate" value="${cate}">
@@ -170,10 +179,10 @@
                   <tbody>
                     <c:forEach var="m" items="${mail}">
                       <c:url var="mail" value="mailinsertView.do">
-                        <c:param name="empNo" value="${m.empNo}" />
+                        <c:param name="empNo" value="${m.recieveEmp}"/>
                       </c:url>
                       <tr>
-                        <td><a href="${mail}">${m.empName}</a></td>
+                        <td><a href="${mail}">${m.recieveEmpName}</a></td>
                         <td>
                           <input type="hidden" class="mailNo" value="${m.mailNo}">
                           <input type="hidden" class="empName" value="${m.empName}"><!--보낸사람  -->
@@ -266,6 +275,9 @@
         <!-- 받은 메일함 끝  -->
         <script type="text/javascript">
 			$(".mailDeatil").click(function(){
+				$("tr").removeClass("bgClass");
+				$(this).closest("tr").addClass("bgClass");
+				
 				var mailNo = $(this).siblings(".mailNo").val();
 				var empName = $(this).siblings(".empName").val();
 				var eTitle = $(this).siblings(".eTitle").val();
@@ -282,7 +294,7 @@
 				 $("#eContent").html(eContent);
 				 
 				 //메일 읽은시간 업데이트
-				 if(eRTime==""){
+				/*  if(eRTime==""){
 					 $.ajax({
 						 url:"updateReadTime.do",
 						 data:{mailNo:mailNo},
@@ -290,7 +302,7 @@
 						 success:function(data){
 						 }
 					 });
-				 }
+				 } */
 			});
         </script>
         <!-- 메일 영역 -->

@@ -40,8 +40,16 @@ public class MailController {
 	public ModelAndView mailinsertView(@RequestParam(value = "empNo", required = false) String empNo, ModelAndView mv) {
 		if (empNo == null) {
 			empNo = "";
+		}else {
+			System.out.println(empNo);
+			if(!empNo.contains("( ")) {
+			Employee e = new Employee();
+			e.setEmpNo(empNo);
+			Employee emp = eService.selectEmp(e);
+			empNo = "( "+emp.getEmpNo()+" ) "+ emp.getEmpName() +" - "+emp.getDeptName();
+			}
 		}
-
+		
 		mv.addObject("empNo", empNo);
 		mv.setViewName("mail/mailWrite");
 		return mv;
@@ -54,9 +62,9 @@ public class MailController {
 	public String sendEmail(@RequestParam("empNo") String empNo, @RequestParam("recieveEmp") String recieveEmp,
 			@RequestParam("eType") String eType, @RequestParam("eTitle") String eTitle,
 			@RequestParam("eContent") String eContent) {
-		Employee e = new Employee();
-		e.setEmpNo(recieveEmp);
-		e = eService.selectEmp(e);
+//		Employee e = new Employee();
+//		e.setEmpNo(recieveEmp);
+//		e = eService.selectEmp(e);
 		
 		Mail mail = new Mail();
 		mail.setEmpNo(empNo);
@@ -64,7 +72,7 @@ public class MailController {
 		mail.seteType(eType);
 		mail.seteTitle(eTitle);
 		mail.seteContent(eContent);
-		mail.setRecieveEmpName(e.getEmpName());
+		mail.setRecieveEmpName(recieveEmp);
 
 		int result = mService.sendEmail(mail);
 		if (result > 0) {
@@ -73,7 +81,8 @@ public class MailController {
 			throw new MailException("메일 전송에 실패하였습니다.");
 		}
 	}
-
+	
+	//받은메일함
 	@RequestMapping("mailReceive.do")
 	public ModelAndView noticeView(@RequestParam(value = "search", required = false) String search,
 			@RequestParam(value = "page", required = false) Integer page, @RequestParam("eStatus") String eStatus,
@@ -146,7 +155,7 @@ public class MailController {
 		}
 	}
 	
-	//받은 메일함
+	//보낸 메일함
 	@RequestMapping("mailSendView.do")
 	public ModelAndView mailSendView(ModelAndView mv, HttpSession session,
 									@RequestParam(value = "search", required = false) String search,
@@ -181,6 +190,10 @@ public class MailController {
 		listCount = mService.SearchBListCount(map);
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 		ArrayList<Mail> mail = mService.selectBSearchList(pi, map);
+		for(Mail m : mail) {
+			String str = m.getRecieveEmp();
+			m.setRecieveEmpName(str.substring( str.indexOf(" ) ")+3,str.indexOf(" - ") ));
+		}
 		
 		mv.addObject("cate", cate);
 		mv.addObject("search", search);

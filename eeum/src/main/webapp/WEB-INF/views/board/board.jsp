@@ -62,6 +62,9 @@
  a:visited { color: gray; text-decoration: none;}
  a:hover { color: gray; text-decoration: none;}
 
+.bContents:hover {
+	background: rgb(250,250,250);
+}
 </style>
 </head>
 
@@ -168,7 +171,7 @@
                   		<c:param name="bNo" value="${n.bNo}"/>
                   		<c:param name="page" value="${ pi.currentPage }"/>
                   	</c:url>
-					<tr>
+					<tr class="bContents">
 						<td>${n.bNo}</td>
 						<td>
 							<c:set var="bContent" value="${n.bContent}"/>

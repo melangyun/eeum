@@ -89,6 +89,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return eDAO.getEmployee(deptNo);
 	}
 
+	@Override
+	public ArrayList<Employee> searchEmpList(String string) {
+		return eDAO.searchEmpList(string);
+	}
+
 
 	
 }

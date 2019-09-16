@@ -30,13 +30,9 @@
 <!-- Full Calendar  -->
 <link href='${contextPath}/resources/fullcalendar/core/main.css' rel='stylesheet' />
 <link href='${contextPath}/resources/fullcalendar/daygrid/main.css' rel='stylesheet' />
-<link href='${contextPath}/resources/fullcalendar/timegrid/main.css' rel='stylesheet' />
-<link href='${contextPath}/resources/fullcalendar/list/main.css' rel='stylesheet' />
 <script src='${contextPath}/resources/fullcalendar/core/main.js'></script>
 <script src='${contextPath}/resources/fullcalendar/interaction/main.js'></script>
 <script src='${contextPath}/resources/fullcalendar/daygrid/main.js'></script>
-<script src='${contextPath}/resources/fullcalendar/timegrid/main.js'></script>
-<script src='${contextPath}/resources/fullcalendar/list/main.js'></script>
 
 
 <style type="text/css">
@@ -44,6 +40,15 @@
 	width:70%;
 	margin-left: auto;
 	margin-right: auto;
+	}
+	.fc-title{
+	color: white;
+	}
+	.fc-event, .fc-event-dot {
+    background-color: rgb(20,20,50);
+	}
+	.fc-event{
+	border: rgb(20,20,50);
 	}
 </style>
 </head>
@@ -64,10 +69,7 @@
 				<h1 class="h3 mb-0 text-gray-800">일정 관리</h1>
 			</div>
 			<div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">일정 관리</h6>
-                </div>
-                <div class="card-body">
+                <div class="card-body" style="padding:5rem;">
                   <div id="calendar" class="fc fc-ltr fc-bootstrap">
 					</div>
                 </div>
@@ -75,77 +77,75 @@
 			
 			<script>
 			var date = new Date();
-			var day = date.getFullYear() + "-" + ( date.getMonth() + 1 ) + "- " + date.getDate();
 			  document.addEventListener('DOMContentLoaded', function() {
-				    var calendarEl = document.getElementById('calendar');
-
+				  var calendarEl = document.getElementById('calendar');
+					
 				    var calendar = new FullCalendar.Calendar(calendarEl, {
-				      plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
-				      header: {
-				        left: 'prev,next today',
-				        center: 'title',
-				        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-				      },
-				      defaultDate: date,
-				      navLinks: true, // can click day/week names to navigate views
-				      businessHours: true, // display business hours
-				      editable: true,
-				      events: [
-				        {
-				          title: 'Business Lunch',
-				          start: '2019-08-03T13:00:00',
-				          constraint: 'businessHours'
-				        },
-				        {
-				          title: 'Meeting',
-				          start: '2019-08-13T11:00:00',
-				          constraint: 'availableForMeeting', // defined below
-				          color: '#257e4a'
-				        },
-				        {
-				          title: 'Conference',
-				          start: '2019-08-18',
-				          end: '2019-08-20'
-				        },
-				        {
-				          title: 'Party',
-				          start: '2019-08-29T20:00:00'
-				        },
+				        plugins: [ 'interaction', 'dayGrid' ],
+				        defaultDate: date,
+				        editable: true,
+				        eventLimit: true, // allow "more" link when too many events
+				        events: [
+				          {
+				            title: 'All Day Event',
+				            start: '2019-08-01'
+				          },
+				          {
+				            title: 'Long Event',
+				            start: '2019-08-07',
+				            end: '2019-08-10'
+				          },
+				          {
+				            groupId: 999,
+				            title: 'Repeating Event',
+				            start: '2019-08-09T16:00:00'
+				          },
+				          {
+				            groupId: 999,
+				            title: 'Repeating Event',
+				            start: '2019-08-16T16:00:00'
+				          },
+				          {
+				            title: 'Conference',
+				            start: '2019-08-11',
+				            end: '2019-08-13'
+				          },
+				          {
+				            title: 'Meeting',
+				            start: '2019-08-12T10:30:00',
+				            end: '2019-08-12T12:30:00'
+				          },
+				          {
+				            title: 'Lunch',
+				            start: '2019-08-12T12:00:00'
+				          },
+				          {
+				            title: 'Meeting',
+				            start: '2019-08-12T14:30:00'
+				          },
+				          {
+				            title: 'Happy Hour',
+				            start: '2019-08-12T17:30:00'
+				          },
+				          {
+				            title: 'Dinner',
+				            start: '2019-08-12T20:00:00'
+				          },
+				          {
+				            title: 'Birthday Party',
+				            start: '2019-08-13T07:00:00'
+				          },
+				          {
+				            title: 'Click for Google',
+				            url: 'http://google.com/',
+				            start: '2019-08-28'
+				          }
+				        ]
+				      });
 
-				        // areas where "Meeting" must be dropped
-				        {
-				          groupId: 'availableForMeeting',
-				          start: '2019-08-11T10:00:00',
-				          end: '2019-08-11T16:00:00',
-				          rendering: 'background'
-				        },
-				        {
-				          groupId: 'availableForMeeting',
-				          start: '2019-08-13T10:00:00',
-				          end: '2019-08-13T16:00:00',
-				          rendering: 'background'
-				        },
-
-				        // red areas where no events can be dropped
-				        {
-				          start: '2019-08-24',
-				          end: '2019-08-28',
-				          overlap: false,
-				          rendering: 'background',
-				          color: '#ff9f89'
-				        },
-				        {
-				          start: '2019-08-06',
-				          end: '2019-08-08',
-				          overlap: false,
-				          rendering: 'background',
-				          color: '#ff9f89'
-				        }
-				      ]
+				      calendar.render();
 				    });
 
-				    calendar.render();
-				  });
 
 			</script>
 

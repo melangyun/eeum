@@ -60,7 +60,6 @@
 		<if test="cate != null">
 			AND	DEPTNO = #{deptNo}
 		</if>
-		ORDER BY EMPPOSITION DESC
 	</select>
 	
 	<select id="SearchListCount" resultType="_int">
@@ -123,5 +122,13 @@
 		JOIN DEPARTMENT USING (DEPTNO)
 		where DEPTNO=#{DEPTNO} AND EMPSTATUS='Y'
 	</select>
+	
+	<select id="searchEmpList" parameterType="string" resultType="Employee">
+		select *
+		from EMPLOYEE
+		JOIN DEPARTMENT USING (DEPTNO)
+		where EMPSTATUS='Y' AND (EMPNO LIKE #{string} or EMPNAME LIKE #{string})
+	</select>
+	
 	
 </mapper>

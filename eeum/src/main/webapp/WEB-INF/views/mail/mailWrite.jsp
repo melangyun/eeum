@@ -9,8 +9,7 @@
 
 <title>GroupWare</title>
 <!-- Custom fonts for this template-->
-<link href="${contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
+<link href="${contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
 <!-- Bootstrap core JavaScript-->
@@ -39,6 +38,10 @@
 <!-- include summernote css/js-->
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+
+<!--자동완성  -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 <style type="text/css">
 	#buttons button{
 		margin: 5em;
@@ -96,6 +99,55 @@
 
 
 			<script type="text/javascript">
+			$(document).ready(function(){
+				if($("#recieveEmp").val()!=""){
+					$("#recieveEmp").attr('readonly',true);
+				}
+			});
+			
+			$(document).on('click','#recieveEmp',function(){
+				if ( $(this).is('[readonly]') ) { 
+					if(confirm("수신인을 변경하시겠습니까?")){
+						$(this).removeAttr('readonly');
+						$(this).val("");
+					}
+				}
+			})
+			
+			$(document).on('keyup','#recieveEmp',function(){
+				var search = $(this).val();
+				/* var search =string;
+				var result = -1;
+				result = string.lastIndexOf(",")+1;
+				if(result!=-1){
+					search = string.substring(result,string.length);
+				} */
+				//console.log(search);
+					$.ajax({
+						url:"searchEmpList.do",
+						data:{search:search},
+						dataType:"json",
+						success : function(data){
+							var list = [];
+							if(data.length > 0){
+								for(var i in data){
+									list.push(decodeURIComponent(data[i].replace(/\+/g," ")));
+								}
+								$("#recieveEmp").autocomplete({
+									source:list,
+									select: function(event, ui) {
+										//console.log(ui.item);
+										$(this).attr('readonly',true);
+							        },
+							        focus: function(event, ui) {
+							            return false;
+							        }
+								});
+							}
+						}
+					});
+			});
+			
 			$(document).ready(function() {
 			      $('#summernote').summernote({
 			    	  toolbar: [
@@ -157,23 +209,12 @@
 						$("#recieveEmp").attr("readonly",false);
 					}
 				});
-			//사번 검색 ajax	
-			/* $("#recieveEmp").on('keyup',function(){
-				var search = $("#recieveEmp").val();
-				if(search.length > 0 && search != ' '){
-					$.ajax({
-						url:"searchEmp.do",
-						data:{search:search},
-						type:"json",
-						success : function(data){
-							$('')
-						}
-					});
-				}
-			}); */
-				
 				
 				function commit(){
+				if ( !$('#recieveEmp').is('[readonly]') ) {
+					alert("수신인을 정확히 입력해주세요!");
+					return;
+				}
 				var eTitle = $("#eTitle").val();
 				var eContent = $("#summernote").val();
 				var recieveEmp = $("#recieveEmp").val().trim();

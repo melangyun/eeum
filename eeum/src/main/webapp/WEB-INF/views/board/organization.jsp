@@ -203,7 +203,7 @@
 										<td>${e.empphone}</td>
 										<td>
 											<c:url var="mail" value="mailinsertView.do">
-						                        <c:param name="empNo" value="${e.empNo}" />
+						                        <c:param name="empNo" value="( ${e.empNo} ) ${e.empName} - ${e.deptName}" />
 						                      </c:url>
 											<a href="${mail }"><i class="fa fa-envelope-o" aria-hidden="true" style="cursor:pointer"></i></a>
 										</td>

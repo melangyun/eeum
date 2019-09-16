@@ -28,6 +28,7 @@
 		EMPNAME LIKE #{searchKey}
 		OR ETITLE LIKE #{searchKey}
 		OR ECONTENT LIKE #{searchKey}
+		OR RECIEVEEMP LIKE #{searchKey}
 		)
 		<if test="cate != null and cate.equals('unRead')">
 		and ERTIME IS NULL
@@ -44,6 +45,7 @@
 		EMPNAME LIKE #{searchKey}
 		OR ETITLE LIKE #{searchKey}
 		OR ECONTENT LIKE #{searchKey}
+		OR RECIEVEEMP LIKE #{searchKey}
 		)
 		<if test="cate != null and cate.equals('unRead')">
 		and ERTIME IS NULL
@@ -81,6 +83,7 @@
 		EMPNAME LIKE #{searchKey}
 		OR ETITLE LIKE #{searchKey}
 		OR ECONTENT LIKE #{searchKey}
+		OR RECIEVEEMP LIKE #{searchKey}
 		)
 		<if test="cate != null and cate.equals('unRead')">
 		and ERTIME IS NOT NULL
@@ -97,6 +100,7 @@
 		EMPNAME LIKE #{searchKey}
 		OR ETITLE LIKE #{searchKey}
 		OR ECONTENT LIKE #{searchKey}
+		OR RECIEVEEMP LIKE #{searchKey}
 		)
 		<if test="cate != null and cate.equals('unRead')">
 		and ERTIME IS NOT NULL

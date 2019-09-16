@@ -54,7 +54,7 @@
       </li>
       
       <!-- 교육  -->
-      <li class="nav-item">
+<!--       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEdu" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa fa-laptop"></i>
           <span>교육</span>
@@ -69,7 +69,7 @@
           </div>
         </div>
       </li>
-      
+       -->
        <!-- 회의실  -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Room" aria-expanded="true" aria-controls="collapseUtilities">
@@ -78,11 +78,8 @@
         </a>
         <div id="Room" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Notice:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
+            <a class="collapse-item" href="rInsertView.do">회의실 예약</a>
+            <a class="collapse-item" href="rListView.do">예약 내역</a>
           </div>
         </div>
       </li>

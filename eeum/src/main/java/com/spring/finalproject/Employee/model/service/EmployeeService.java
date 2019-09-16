@@ -36,6 +36,8 @@ public interface EmployeeService {
 
 	ArrayList<Employee> getEmployee(String deptNo);
 
+	ArrayList<Employee> searchEmpList(String string);
+
 
 
 
