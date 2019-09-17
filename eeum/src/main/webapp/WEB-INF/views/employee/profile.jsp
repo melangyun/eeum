@@ -250,7 +250,7 @@ figure.snip1382.hover figcaption p {
 	                  <input type="password" id="pwd" class="form-control form-control-user" placeholder="기존 비밀번호">
 	                </div>
 	                <div class="form-group">
-	                  <input type="password" id="new_pwd1" class="form-control form-control-user" placeholder="세로운 비밀번호">
+	                  <input type="password" id="new_pwd1" class="form-control form-control-user" placeholder="새로운 비밀번호">
 	                </div>
 	                <div class="form-group">
 	                  <input type="password" id="new_pwd2" class="form-control form-control-user" placeholder="비밀번호 확인">

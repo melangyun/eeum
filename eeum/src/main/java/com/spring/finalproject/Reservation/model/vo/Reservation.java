@@ -8,7 +8,31 @@ public class Reservation {
 	private String joinEmp;
 	private String mTitle;
 	private String mContnet;
+	private String rTime;
+	private String rStatus;
 	
+	public Reservation(String rDate, int mNo, String mName, String empNo, String joinEmp, String mTitle,
+			String mContnet, String rTime, String rStatus) {
+		super();
+		this.rDate = rDate;
+		this.mNo = mNo;
+		this.mName = mName;
+		this.empNo = empNo;
+		this.joinEmp = joinEmp;
+		this.mTitle = mTitle;
+		this.mContnet = mContnet;
+		this.rTime = rTime;
+		this.rStatus = rStatus;
+	}
+	public Reservation() {
+		super();
+	}
+	@Override
+	public String toString() {
+		return "Reservation [rDate=" + rDate + ", mNo=" + mNo + ", mName=" + mName + ", empNo=" + empNo + ", joinEmp="
+				+ joinEmp + ", mTitle=" + mTitle + ", mContnet=" + mContnet + ", rTime=" + rTime + ", rStatus="
+				+ rStatus + "]";
+	}
 	public String getrDate() {
 		return rDate;
 	}
@@ -51,28 +75,18 @@ public class Reservation {
 	public void setmContnet(String mContnet) {
 		this.mContnet = mContnet;
 	}
-	public Reservation(String rDate, int mNo, String mName, String empNo, String joinEmp, String mTitle,
-			String mContnet) {
-		super();
-		this.rDate = rDate;
-		this.mNo = mNo;
-		this.mName = mName;
-		this.empNo = empNo;
-		this.joinEmp = joinEmp;
-		this.mTitle = mTitle;
-		this.mContnet = mContnet;
+	public String getrTime() {
+		return rTime;
 	}
-	
-	public Reservation() {
-		super();
+	public void setrTime(String rTime) {
+		this.rTime = rTime;
 	}
-	
-	@Override
-	public String toString() {
-		return "Reservation [rDate=" + rDate + ", mNo=" + mNo + ", mName=" + mName + ", empNo=" + empNo + ", joinEmp="
-				+ joinEmp + ", mTitle=" + mTitle + ", mContnet=" + mContnet + "]";
+	public String getrStatus() {
+		return rStatus;
 	}
-	
+	public void setrStatus(String rStatus) {
+		this.rStatus = rStatus;
+	}
 	
 	
 }

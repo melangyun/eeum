@@ -4,5 +4,24 @@
 	<select id="selectRoom" resultType="map">
 		select *
 		from meetingRoom
-	</select>	
+	</select>
+	<insert id="rinsert" parameterType="Reservation">
+		insert into RESERVATION
+		values(#{rDate},#{mNo},#{empNo},#{joinEmp},#{mTitle},#{mContnet},default)
+	</insert>
+	<select id="rSelectDate" parameterType="map" resultType="string">
+		select RDATE
+		from RESERVATION
+		where (RDATE like #{date} and mNo = #{mNo})and RSTATUS='Y'
+	</select>
+	<select id="selectAllRes" parameterType="string" resultType="Reservation">
+		select *
+		from RESERVATION JOIN MEETINGROOM USING (MNO)
+		where (EMPNO like #{empNo} or JOINEMP like #{empNo})and RSTATUS='Y'
+	</select>
+	<update id="Rupdate">
+		update RESERVATION
+		set JOINEMP =#{joinEmp}, RSTATUS=#{rStatus}
+		where RDATE=#{rDate} and MNO=#{mNo}
+	</update>
 </mapper>
