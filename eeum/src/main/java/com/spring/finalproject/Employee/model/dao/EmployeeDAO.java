@@ -89,4 +89,8 @@ public class EmployeeDAO {
 		return (ArrayList)sqlSession.selectList("empMapper.searchEmpList", string);
 	}
 
+	public ArrayList<Employee> selectDeptEmp(String deptNo) {
+		return (ArrayList)sqlSession.selectList("empMapper.selectDeptEmp",deptNo);
+	}
+
 }

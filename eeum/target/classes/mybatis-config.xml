@@ -12,6 +12,7 @@
 		<typeAlias type="com.spring.finalproject.Todo.model.vo.Todo" alias="Todo" />
 		<typeAlias type="com.spring.finalproject.Approval.model.vo.Approval" alias="Approval" />
 		<typeAlias type="com.spring.finalproject.Reservation.model.vo.Reservation" alias="Reservation" />
+		<typeAlias type="com.spring.finalproject.Board.model.vo.Calendar" alias="Calendar" />
 	</typeAliases>
 
 	<mappers>

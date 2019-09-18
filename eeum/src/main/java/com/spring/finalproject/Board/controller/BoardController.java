@@ -2,8 +2,11 @@ package com.spring.finalproject.Board.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,11 +21,16 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.finalproject.Approval.model.service.ApprovalService;
+import com.spring.finalproject.Approval.model.vo.Approval;
 import com.spring.finalproject.Board.model.exception.BoardException;
 import com.spring.finalproject.Board.model.service.BoardService;
 import com.spring.finalproject.Board.model.vo.Board;
 import com.spring.finalproject.Board.model.vo.PageInfo;
+import com.spring.finalproject.Employee.model.service.EmployeeService;
 import com.spring.finalproject.Employee.model.vo.Employee;
+import com.spring.finalproject.Reservation.model.service.ReservationService;
+import com.spring.finalproject.Reservation.model.vo.Reservation;
 import com.spring.finalproject.common.Pagination;
 
 @Controller
@@ -31,6 +39,15 @@ public class BoardController {
 
 	@Autowired
 	BoardService bService;
+	
+	@Autowired
+	ReservationService rService;
+	
+	@Autowired
+	private EmployeeService eService;
+	
+	@Autowired
+	ApprovalService aService;
 
 	@RequestMapping("notice.do")
 	public ModelAndView noticeView(
@@ -199,7 +216,80 @@ public class BoardController {
 	}
 	
 	@RequestMapping("calPage.do")
-	public ModelAndView calView(ModelAndView mv) {
+	public ModelAndView calView(ModelAndView mv,HttpSession session) {
+		Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+		//내가 참여할 회의 리스트
+		ArrayList<Reservation> rList =  rService.selectAllRes("%"+loginEmp.getEmpNo()+"%");
+		
+		//우리 부서원들!
+		ArrayList<Employee> eList = eService.selectDeptEmp(loginEmp.getDeptNo());
+		
+		//부서원들 목록(휴가목록 추출용)
+		ArrayList<String> emp = new ArrayList<>();
+		for(Employee e : eList) {
+			emp.add(e.getEmpNo());
+		}
+		//우리 부서원들 휴가list
+		ArrayList<Approval>aList = aService.selectDeptVacation(emp);
+		
+		//반환용 list
+		// 1. 참여회의 반환용 - title, startDay
+		ArrayList<HashMap<String,String>> r_rlist = new ArrayList<>();
+		// 2. 입사기념일 반환용 - title-> 이름 , start
+		ArrayList<HashMap<String,String>> r_eList = new ArrayList<>();
+		// 3. 휴가 반환용-  title-> 이름 , start, finish
+		ArrayList<HashMap<String,String>> r_vList = new ArrayList<>();
+		
+		
+		//1. 참여 회의 list
+		for(Reservation r : rList) {
+			String str = r.getrDate();
+			String[] temp = str.split(";");
+			
+			HashMap<String,String> map = new HashMap<>();
+			map.put("start", temp[0]);
+			map.put("title", r.getmTitle());
+			
+			r_rlist.add(map);
+		}
+		
+		//입사일 올해로 치환 후 담기!
+		GregorianCalendar today = new GregorianCalendar();
+		int year = today.get(Calendar.YEAR);
+		for(Employee e : eList) {
+			String joinDate = e.getJoinDate()+"";
+			String[] temp = joinDate.split("-");
+			joinDate= year+"-"+temp[1]+"-"+temp[2];
+			/* e.setJoinDate(joinDate.setYear(Year)); */
+			HashMap<String,String> map = new HashMap<>();
+			map.put("start", joinDate);
+			map.put("title", e.getEmpName());
+			
+			r_eList.add(map);
+		}
+		
+		//휴가 
+		for(Approval ap : aList) {
+			HashMap<String,String> map = new HashMap<>();
+			//이름 찾아오기
+			String empNo = ap.getEmpNo();
+			String empName = "";
+			for(Employee e : eList) {
+				if(e.getEmpNo().equals(empNo)) {
+					empName = e.getEmpName();
+				}
+			}
+			map.put("title", empName);
+			map.put("start", ap.getA_v_first()+"");
+			map.put("finish", ap.getA_v_last()+"");
+			
+			r_vList.add(map);
+		}
+		
+		mv.addObject("rlist",r_rlist);
+		mv.addObject("elist",r_eList);
+		mv.addObject("vlist",r_vList);
+		
 		mv.setViewName("board/calender");
 		return mv;
 	}

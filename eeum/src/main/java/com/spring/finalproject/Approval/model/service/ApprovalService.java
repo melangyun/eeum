@@ -18,5 +18,7 @@ public interface ApprovalService {
 
 	int deleteAp(String apNo);
 
+	ArrayList<Approval> selectDeptVacation(ArrayList<String> emp);
+
 
 }

@@ -21,7 +21,7 @@
         select *
 		from EMPLOYEE
 		JOIN DEPARTMENT USING (DEPTNO)
-		where EMPNO=#{empNo} AND EMPSTATUS='Y'
+		where EMPNO=#{empNo} AND EMPSTATUS !='N'
 	</select>
 	
 	<insert id="insertEmp" parameterType="Employee">
@@ -32,7 +32,7 @@
 	<select id="selectNewEmp" resultType="string">
 		select empno
 		from EMPLOYEE
-		where (empname = #{empName} and deptno = #{deptNo} and empPosition=#{empPosition} and joindate = #{joinDate} and email = #{email} and address = #{address} and empstatus = 'Y')
+		where (empname = #{empName} and deptno = #{deptNo} and empPosition=#{empPosition} and joindate = #{joinDate} and email = #{email} and address = #{address} and empstatus != 'N')
 	</select>
 	
 	<update id="updateEmpPwd">
@@ -44,7 +44,7 @@
 	<select id="selectListCount" resultType="_int">
 		select count(*)
 		from EMPLOYEE
-		where EMPSTATUS = 'Y'
+		where EMPSTATUS != 'N'
 		AND DEPTNO != 'MMMMM'
 		<if test="cate != null">
 			AND	DEPTNO = #{deptNo}
@@ -55,7 +55,7 @@
 		select *
 		from EMPLOYEE
 		JOIN DEPARTMENT USING (DEPTNO)
-		where EMPSTATUS = 'Y'
+		where EMPSTATUS != 'N'
 		AND DEPTNO != 'MMMMM'
 		<if test="cate != null">
 			AND	DEPTNO = #{deptNo}
@@ -66,7 +66,7 @@
 		select count(*)
 		from EMPLOYEE
 		JOIN DEPARTMENT USING (DEPTNO)
-		where EMPSTATUS = 'Y'
+		where EMPSTATUS != 'N'
 		AND DEPTNO != 'MMMMM'
 		AND
 		(
@@ -84,7 +84,7 @@
 		select *
 		from EMPLOYEE
 		JOIN DEPARTMENT USING (DEPTNO)
-		where EMPSTATUS = 'Y'
+		where EMPSTATUS != 'N'
 		AND DEPTNO != 'MMMMM'
 		AND
 		( DEPTNO LIKE #{search}
@@ -120,15 +120,20 @@
 		select *
 		from EMPLOYEE
 		JOIN DEPARTMENT USING (DEPTNO)
-		where DEPTNO=#{DEPTNO} AND EMPSTATUS='Y'
+		where DEPTNO=#{DEPTNO} AND EMPSTATUS !='N'
 	</select>
 	
 	<select id="searchEmpList" parameterType="string" resultType="Employee">
 		select *
 		from EMPLOYEE
 		JOIN DEPARTMENT USING (DEPTNO)
-		where EMPSTATUS='Y' AND (EMPNO LIKE #{string} or EMPNAME LIKE #{string})
+		where EMPSTATUS!='N' AND (EMPNO LIKE #{string} or EMPNAME LIKE #{string})
 	</select>
 	
+	<select id="selectDeptEmp" parameterType="string" resultType="Employee">
+		select *
+		from EMPLOYEE
+		where DEPTNO = #{deptNo} and EMPSTATUS != 'N'
+	</select>
 	
 </mapper>

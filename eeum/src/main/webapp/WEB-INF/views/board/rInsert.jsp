@@ -211,7 +211,7 @@
 									    var calendar = new FullCalendar.Calendar(calendarEl, {
 									        plugins: [ 'interaction', 'dayGrid' ],
 									        defaultDate: lastMonth,
-									        editable: true,
+									        editable: false,
 									        eventLimit: true, // allow "more" link when too many events
 									        dateClick: function(info) {
 									            /* alert('Clicked on: ' + info.dateStr); */
@@ -277,15 +277,6 @@
 			    		</div>
 		                <div class="card-body">
 		                	<div class="row" id="timearea" style="margin: auto; min-height: 9rem;">
-				                		<%-- <div class="card shadow h-100 py-2 cards">
-							                <div class="card-body">
-							                  <div class="row no-gutters align-items-center">
-							                    <div class="col mr-2">
-							                      <div class="h5 mb-0 font-weight-bold text-gray-800 selection"><span class="time">${i}</span>시</div>
-							                    </div>
-							                  </div>
-							                </div>
-							              </div> --%>
 		                	</div>
 				          
 				          <script type="text/javascript">
@@ -413,7 +404,6 @@
 						  					      }
 					  							joinEmp=joinEmp.substr(0,joinEmp.length-1);
 						  						console.log(joinEmp);
-						  						/* confrimFun(); */
 						  					}
 						  				});
 					  				</script>

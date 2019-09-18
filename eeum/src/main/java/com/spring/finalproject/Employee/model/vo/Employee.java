@@ -14,24 +14,18 @@ public class Employee {
 	private String email;//이메일
 	private String address;//주소
 	private String password;//비밀번호
-	//권한 및 상태 필드 없음
+	private String empStatus;//상태 Y- 재직중, N-퇴사, A-관리자 권한
 	
 	
-	@Override
-	public String toString() {
-		return "Employee [empNo=" + empNo + ", empName=" + empName + ", deptNo=" + deptNo + ", deptName=" + deptName
-				+ ", empPosition=" + empPosition + ", joinDate=" + joinDate + ", phone=" + phone + ", empphone="
-				+ empphone + ", email=" + email + ", address=" + address + ", password=" + password + "]";
-	}
-
-
+	
 	public Employee() {
 		super();
 	}
 
 
+
 	public Employee(String empNo, String empName, String deptNo, String deptName, String empPosition, Date joinDate,
-			String phone, String empphone, String email, String address, String password) {
+			String phone, String empphone, String email, String address, String password, String empStatus) {
 		super();
 		this.empNo = empNo;
 		this.empName = empName;
@@ -44,7 +38,9 @@ public class Employee {
 		this.email = email;
 		this.address = address;
 		this.password = password;
+		this.empStatus = empStatus;
 	}
+
 
 
 	public String getEmpNo() {
@@ -52,9 +48,11 @@ public class Employee {
 	}
 
 
+
 	public void setEmpNo(String empNo) {
 		this.empNo = empNo;
 	}
+
 
 
 	public String getEmpName() {
@@ -62,9 +60,11 @@ public class Employee {
 	}
 
 
+
 	public void setEmpName(String empName) {
 		this.empName = empName;
 	}
+
 
 
 	public String getDeptNo() {
@@ -72,9 +72,11 @@ public class Employee {
 	}
 
 
+
 	public void setDeptNo(String deptNo) {
 		this.deptNo = deptNo;
 	}
+
 
 
 	public String getDeptName() {
@@ -82,9 +84,11 @@ public class Employee {
 	}
 
 
+
 	public void setDeptName(String deptName) {
 		this.deptName = deptName;
 	}
+
 
 
 	public String getEmpPosition() {
@@ -92,9 +96,11 @@ public class Employee {
 	}
 
 
+
 	public void setEmpPosition(String empPosition) {
 		this.empPosition = empPosition;
 	}
+
 
 
 	public Date getJoinDate() {
@@ -102,9 +108,11 @@ public class Employee {
 	}
 
 
+
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}
+
 
 
 	public String getPhone() {
@@ -112,9 +120,11 @@ public class Employee {
 	}
 
 
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
 
 
 	public String getEmpphone() {
@@ -122,9 +132,11 @@ public class Employee {
 	}
 
 
+
 	public void setEmpphone(String empphone) {
 		this.empphone = empphone;
 	}
+
 
 
 	public String getEmail() {
@@ -132,9 +144,11 @@ public class Employee {
 	}
 
 
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 
 
 	public String getAddress() {
@@ -142,9 +156,11 @@ public class Employee {
 	}
 
 
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 
 
 	public String getPassword() {
@@ -152,8 +168,30 @@ public class Employee {
 	}
 
 
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
+
+
+	public String getEmpStatus() {
+		return empStatus;
+	}
+
+
+
+	public void setEmpStatus(String empStatus) {
+		this.empStatus = empStatus;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Employee [empNo=" + empNo + ", empName=" + empName + ", deptNo=" + deptNo + ", deptName=" + deptName
+				+ ", empPosition=" + empPosition + ", joinDate=" + joinDate + ", phone=" + phone + ", empphone="
+				+ empphone + ", email=" + email + ", address=" + address + ", password=" + password + ", empStatus="
+				+ empStatus + "]";
+	}
 }

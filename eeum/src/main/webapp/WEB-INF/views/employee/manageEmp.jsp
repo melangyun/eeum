@@ -86,11 +86,11 @@
 				<div class="col-lg-4">
 					<div class="vard shadow mb-4">
 						<div class="card-header py-3">
-			             <a href="#" class="btn btn-primary btn-icon-split" style="display: inline-block; maring:0; text-align:right">
+			             <!-- <a href="#" class="btn btn-primary btn-icon-split" style="display: inline-block; maring:0; text-align:right">
 							<span class="icon text-white-50">
 								<i class="fa fa-plus"></i>
 							</span>
-						</a>
+						</a> -->
 			             <h6 class="m-0 font-weight-bold text-primary" style="display: inline-block;">조직도</h6>
 			           </div>
             <div class="card-body" style="clear:both;">

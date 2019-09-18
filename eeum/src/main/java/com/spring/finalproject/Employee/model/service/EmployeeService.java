@@ -38,6 +38,8 @@ public interface EmployeeService {
 
 	ArrayList<Employee> searchEmpList(String string);
 
+	ArrayList<Employee> selectDeptEmp(String deptNo);
+
 
 
 

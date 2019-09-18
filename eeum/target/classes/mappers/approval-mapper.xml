@@ -58,5 +58,14 @@
 		update APPROVAL
 		set APSTATUS='N'
 		where apNo = #{apNo}
-	</update>	
+	</update>
+	<select id="selectDeptVacation" resultType="Approval" parameterType="list">
+		select *
+		from APPROVAL
+		where EMPNO in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+		    #{item}
+		</foreach>
+		and A_V_FIRST is not null and APSTATUS != 'N'
+	</select>
 </mapper>

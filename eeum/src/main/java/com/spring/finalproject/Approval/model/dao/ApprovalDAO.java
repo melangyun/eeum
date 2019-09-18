@@ -38,4 +38,8 @@ public class ApprovalDAO {
 		return sqlSession.update("aMapper.deleteAp", apNo);
 	}
 
+	public ArrayList<Approval> selectDeptVacation(ArrayList<String> list) {
+		return (ArrayList)sqlSession.selectList("aMapper.selectDeptVacation",list);
+	}
+
 }

@@ -53,6 +53,9 @@ display: none;
 	margin-top: 2rem;
 	margin-bottom: 2rem;
 }
+.fc-title{
+	cursor: pointer;
+}
 </style>
 </head>
 
@@ -87,7 +90,7 @@ display: none;
 						           	var calendar = new FullCalendar.Calendar(calendarEl, {
 								        plugins: [ 'interaction', 'dayGrid' ],
 								        defaultDate: today,
-								        editable: true,
+								        editable: false,
 								        views: {
 								            dayGrid: {
 								               eventLimit: 2
@@ -98,6 +101,7 @@ display: none;
 								            /* alert('Clicked on: ' + info.dateStr); */
 								          },
 							          eventClick: function(info) {
+							        	 	 $(".hidearea").hide();
 							        	  	$(".hidearea").fadeIn(1000);
 											var id = info.event.id;
 											var temp = id.split(";");

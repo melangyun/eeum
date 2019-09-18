@@ -42,4 +42,9 @@ public class ApprovalServiceImp implements ApprovalService{
 	public int deleteAp(String apNo) {
 		return aDAO.deleteAp(apNo);
 	}
+
+	@Override
+	public ArrayList<Approval> selectDeptVacation(ArrayList<String> emp) {
+		return aDAO.selectDeptVacation(emp);
+	}
 }

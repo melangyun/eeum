@@ -36,11 +36,11 @@
 
 
 <style type="text/css">
-	#calendar{
-	width:70%;
-	margin-left: auto;
-	margin-right: auto;
-	}
+	/* #calendar{
+	width:80%;
+	margin-left: 10%;
+	transition: .8s;
+	} */
 	.fc-title{
 	color: white;
 	}
@@ -49,6 +49,33 @@
 	}
 	.fc-event{
 	border: rgb(20,20,50);
+	}
+	.plusDetail{
+	margin-top: 2rem;
+	}
+	.btnArea{
+		margin-left: auto;
+		margin-right: auto;
+		display: inline-block;
+	}
+	#insertBtn{
+		background-color: rgba(44,62,80,0.5);
+		color:white;
+	}
+	.calendarArea{
+	margin-left: 20%;
+	transition: 1.3s;
+	}
+	.hideArea{
+	display: none;
+	position: absolute;
+	background: white;
+	/* transition-delay:0.5s;
+	 -webkit-transition-delay:0.5s; */
+	}
+	#shareBtn{
+		background-color: rgba(20,20,50,0.8);
+		color:white;
 	}
 </style>
 </head>
@@ -70,7 +97,35 @@
 			</div>
 			<div class="card shadow mb-4">
                 <div class="card-body" style="padding:5rem;">
-                  <div id="calendar" class="fc fc-ltr fc-bootstrap">
+                	<a id="plusBtn" class="btn btn-primary btn-icon-split" style="display: inline-block; maring:0; text-align:right">
+						<span class="icon" style="color: white;">
+							<i class="fa fa-plus"></i>신규일정
+						</span>
+					</a>
+					<div class="row">
+					  <div class="col-lg-3 hideArea">
+					  	<div class="card card-body plusDetail">
+					  		<div class="form-group">
+						    	일정 제목 <input type="text" class="form-control" id="cTitle">
+						  	</div>
+						  	<div class="form-group">
+						    	시작일<input type="date" class="form-control" id="cDate" max="9999-12-31">
+						  	</div>
+						  	<div class="form-group">
+						    	종료일<input type="date" class="form-control" id="cFDate" max="9999-12-31">
+						    	<c:if test="${loginEmp.empStatus eq 'A' }">
+						    		<label style="margin-top: 1rem;"><input type="checkbox">전체 일정으로 공지</label>
+						  		</c:if>
+						  	</div>
+						  	<div class="btnArea">
+						  		<button type="button" class="btn" id="insertBtn">추가</button>
+						  		<button type="button" class="btn" id="shareBtn">공유</button>
+						  	</div>
+						  </div>
+					  </div>
+					  <div class="col-lg-7 calendarArea">
+	                  	<div id="calendar" class="fc fc-ltr fc-bootstrap"></div>
+	                  	</div>
 					</div>
                 </div>
               </div>
@@ -83,72 +138,62 @@
 				    var calendar = new FullCalendar.Calendar(calendarEl, {
 				        plugins: [ 'interaction', 'dayGrid' ],
 				        defaultDate: date,
-				        editable: true,
-				        eventLimit: true, // allow "more" link when too many events
-				        events: [
-				          {
-				            title: 'All Day Event',
-				            start: '2019-08-01'
+				        editable: false,
+				        eventLimit: true,
+				        dateClick: function(info) {
+				            /* alert('Clicked on: ' + info.dateStr); */
+				            /* var selectDay = info.dateStr;
+				            var plusEvent = prompt(selectDay +"일 일정 추가");
+				           	console.log(plusEvent); */
 				          },
-				          {
-				            title: 'Long Event',
-				            start: '2019-08-07',
-				            end: '2019-08-10'
-				          },
-				          {
-				            groupId: 999,
-				            title: 'Repeating Event',
-				            start: '2019-08-09T16:00:00'
-				          },
-				          {
-				            groupId: 999,
-				            title: 'Repeating Event',
-				            start: '2019-08-16T16:00:00'
-				          },
-				          {
-				            title: 'Conference',
-				            start: '2019-08-11',
-				            end: '2019-08-13'
-				          },
-				          {
-				            title: 'Meeting',
-				            start: '2019-08-12T10:30:00',
-				            end: '2019-08-12T12:30:00'
-				          },
-				          {
-				            title: 'Lunch',
-				            start: '2019-08-12T12:00:00'
-				          },
-				          {
-				            title: 'Meeting',
-				            start: '2019-08-12T14:30:00'
-				          },
-				          {
-				            title: 'Happy Hour',
-				            start: '2019-08-12T17:30:00'
-				          },
-				          {
-				            title: 'Dinner',
-				            start: '2019-08-12T20:00:00'
-				          },
-				          {
-				            title: 'Birthday Party',
-				            start: '2019-08-13T07:00:00'
-				          },
-				          {
-				            title: 'Click for Google',
-				            url: 'http://google.com/',
-				            start: '2019-08-28'
-				          }
-				        ]
+				        views: {
+				            dayGrid: {
+				               eventLimit: 2
+				            }
+				        }
 				      });
-
+				  		  //참여 회의
+					    <c:forEach var ='i' items='${rlist}'>
+			           		calendar.addEvent({'title': '${i.title}',
+			           							'start':'${i.start}',
+			           							'url':'rListView.do',
+			           							'color':'rgb(20,20,50)',
+			           							'textColor':'white'
+			           							});
+	           			</c:forEach>
+	           			
+	           			//입사기념일
+	           			<c:forEach var ='i' items='${elist}'>
+			           		calendar.addEvent({'title': '${i.title}님 입사기념일',
+			           							'start':'${i.start}',
+			           							'color':'#FFBB00',
+			           							'textColor':'white'
+			           							});
+	           			</c:forEach>
+	           			//휴가
+	           			<c:forEach var ='i' items='${vlist}'>
+		           		calendar.addEvent({'title': '${i.title}님 휴가',
+		           							'start':'${i.start}',
+		           							'end':'${i.finish}',
+		           							'color':'#5F00FF',
+		           							'textColor':'white'
+		           							});
+           				</c:forEach>
 				      calendar.render();
 				    });
 
-
 			</script>
-
+			<script type="text/javascript">
+				$(document).on('click', '#plusBtn', function(){
+					$(".calendarArea").css('margin-left','35%');
+					$(".hideArea").fadeIn(1500);
+				});
+				
+				$(document).on('click','#insertBtn',function(){
+					$(".calendarArea").css('margin-left','20%');
+					$(".hideArea").fadeOut(500);
+				});
+			</script>
 
 		</div>
 	</div>
