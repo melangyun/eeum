@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.spring.finalproject.Board.model.vo.Board;
 import com.spring.finalproject.Board.model.vo.PageInfo;
+import com.spring.finalproject.Board.model.vo.UCalendar;
 
 @Repository("bDAO")
 public class BoardDAO {
@@ -65,6 +66,22 @@ public class BoardDAO {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		
 		return (ArrayList)sqlSession.selectList("bMapper.selectSearchList",map,rowBounds);
+	}
+
+	public int cinsert(UCalendar c) {
+		return sqlSession.insert("bMapper.cinsert", c);
+	}
+
+	public ArrayList<UCalendar> selectAllCaledar(String empNo) {
+		return (ArrayList)sqlSession.selectList("bMapper.selectAllCaledar",empNo);
+	}
+
+	public UCalendar selectOneC(int parseInt) {
+		return sqlSession.selectOne("bMapper.selectOneC",parseInt);
+	}
+
+	public int cUpdate(UCalendar c) {
+		return sqlSession.update("bMapper.cUpdate", c);
 	}
 
 }

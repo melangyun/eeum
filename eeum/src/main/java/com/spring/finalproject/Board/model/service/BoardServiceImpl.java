@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.spring.finalproject.Board.model.dao.BoardDAO;
 import com.spring.finalproject.Board.model.vo.Board;
 import com.spring.finalproject.Board.model.vo.PageInfo;
+import com.spring.finalproject.Board.model.vo.UCalendar;
 
 @Service("bService")
 public class BoardServiceImpl implements BoardService {
@@ -69,6 +70,26 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public ArrayList<Board> selectSearchList(PageInfo pi, HashMap<String, String> map) {
 		return bDAO.selectSearchList(pi,map);
+	}
+
+	@Override
+	public int cinsert(UCalendar c) {
+		return bDAO.cinsert(c);
+	}
+
+	@Override
+	public ArrayList<UCalendar> selectAllCaledar(String empNo) {
+		return bDAO.selectAllCaledar(empNo);
+	}
+
+	@Override
+	public UCalendar selectOneC(int parseInt) {
+		return bDAO.selectOneC(parseInt);
+	}
+
+	@Override
+	public int cUpdate(UCalendar c) {
+		return bDAO.cUpdate(c);
 	}
 	
 }

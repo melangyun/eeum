@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.spring.finalproject.Board.model.vo.Board;
 import com.spring.finalproject.Board.model.vo.PageInfo;
+import com.spring.finalproject.Board.model.vo.UCalendar;
 
 public interface BoardService {
 
@@ -29,5 +30,13 @@ public interface BoardService {
 	int SearchListCount(HashMap<String, String> map);
 
 	ArrayList<Board> selectSearchList(PageInfo pi, HashMap<String, String> map);
+
+	int cinsert(UCalendar c);
+
+	ArrayList<UCalendar> selectAllCaledar(String string);
+
+	UCalendar selectOneC(int parseInt);
+
+	int cUpdate(UCalendar c);
 
 }

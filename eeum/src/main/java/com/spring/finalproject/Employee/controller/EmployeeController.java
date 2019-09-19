@@ -473,13 +473,18 @@ public class EmployeeController {
 	
 	//사원 조회(search)
 	@RequestMapping("searchEmpList.do")
-	public void searchEmpList(HttpServletResponse response,
+	public void searchEmpList(HttpServletResponse response,HttpSession session,
 							 @RequestParam("search")String search) throws IOException {
 		ArrayList<Employee>list = eService.searchEmpList("%"+search.trim()+"%");
 		ArrayList<String> resultList = new ArrayList<>();
+		Employee loginEmp = (Employee) session.getAttribute("loginEmp");
+		String myNo = loginEmp.getEmpNo();
 		for(Employee emp :list) {
-			String str = URLEncoder.encode("( "+emp.getEmpNo()+" ) "+ emp.getEmpName() +" - "+emp.getDeptName() ,"utf-8");
-			resultList.add(str);
+			if(emp.getEmpNo().equals(myNo)&&!emp.getDeptNo().equals("MMMMM")) {
+			}else {
+				String str = URLEncoder.encode("( "+emp.getEmpNo()+" ) "+ emp.getEmpName() +" - "+emp.getDeptName() ,"utf-8");
+				resultList.add(str);
+			}
 		}
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(resultList,response.getWriter());

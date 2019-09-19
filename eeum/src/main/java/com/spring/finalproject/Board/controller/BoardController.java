@@ -2,7 +2,6 @@ package com.spring.finalproject.Board.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +26,7 @@ import com.spring.finalproject.Board.model.exception.BoardException;
 import com.spring.finalproject.Board.model.service.BoardService;
 import com.spring.finalproject.Board.model.vo.Board;
 import com.spring.finalproject.Board.model.vo.PageInfo;
+import com.spring.finalproject.Board.model.vo.UCalendar;
 import com.spring.finalproject.Employee.model.service.EmployeeService;
 import com.spring.finalproject.Employee.model.vo.Employee;
 import com.spring.finalproject.Reservation.model.service.ReservationService;
@@ -231,6 +231,9 @@ public class BoardController {
 		}
 		//우리 부서원들 휴가list
 		ArrayList<Approval>aList = aService.selectDeptVacation(emp);
+		//캘린더에 등록된 일정 - 개인 일정, 공유 일정, 전체일정
+		ArrayList<UCalendar> cList = bService.selectAllCaledar("%"+loginEmp.getEmpNo()+"%");
+		
 		
 		//반환용 list
 		// 1. 참여회의 반환용 - title, startDay
@@ -239,6 +242,12 @@ public class BoardController {
 		ArrayList<HashMap<String,String>> r_eList = new ArrayList<>();
 		// 3. 휴가 반환용-  title-> 이름 , start, finish
 		ArrayList<HashMap<String,String>> r_vList = new ArrayList<>();
+		// 4. 개인 일정
+		ArrayList<UCalendar> r_pList = new ArrayList<>();
+		// 5. 공유 일정
+		ArrayList<UCalendar> r_sList = new ArrayList<>();
+		// 6. 전체 일정
+		ArrayList<UCalendar> r_aList = new ArrayList<>();
 		
 		
 		//1. 참여 회의 list
@@ -286,6 +295,33 @@ public class BoardController {
 			r_vList.add(map);
 		}
 		
+		//캘린더 나누기
+		for(UCalendar c : cList) {
+			Employee e = new Employee();
+			e.setEmpNo(c.getEmpNo());
+			Employee Emp = eService.selectEmp(e);
+			c.setEmpNo("( "+Emp.getEmpNo()+" ) "+Emp.getEmpName()+" - "+Emp.getDeptName()); 
+			
+			if(c.getcStatus().equals("A")) {
+				//전체일정
+				r_aList.add(c);
+			}else if(c.getEmpNo() != null) {
+				//본인일정
+				if(c.getEmpNo().contains(loginEmp.getEmpNo())) {
+					r_pList.add(c);
+				}
+			}
+			if(c.getsEmp()!=null){
+				//남이 공유해준 일정
+				if(c.getsEmp().contains(loginEmp.getEmpNo())) {
+					r_sList.add(c);
+				}
+			}
+		}
+		
+		mv.addObject("r_pList",r_pList);
+		mv.addObject("r_sList",r_sList);
+		mv.addObject("r_aList",r_aList);
 		mv.addObject("rlist",r_rlist);
 		mv.addObject("elist",r_eList);
 		mv.addObject("vlist",r_vList);
@@ -293,4 +329,70 @@ public class BoardController {
 		mv.setViewName("board/calender");
 		return mv;
 	}
+	
+	@RequestMapping("cinsert.do")
+	@ResponseBody
+	public String cinsert(@RequestParam("empNo")String empNo,
+						  @RequestParam("cDate")String cDate,
+						  @RequestParam("cStatus")String cStatus,
+						  @RequestParam("cTitle")String cTitle,
+						  @RequestParam("sEmp")String sEmp,
+						  @RequestParam("cFDate")String cFDate) {
+		UCalendar c = new UCalendar();
+//		String[] temp = cFDate.split("-");
+//		cFDate=temp[0]+"-"+temp[1]+"-"+((Integer.parseInt(temp[2])+1)+"");
+		
+		c.setEmpNo(empNo);
+		c.setcDate(cDate);
+		c.setcStatus(cStatus);
+		c.setcTitle(cTitle);
+		c.setsEmp(sEmp);
+		c.setcFDate(cFDate);
+		
+		int result = bService.cinsert(c);
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
+	
+	@RequestMapping("cUpdate.do")
+	@ResponseBody
+	public String cUpdate(@RequestParam("cate")String cate,@RequestParam("id")String id,HttpSession session) {
+		//id로 db에서 전체 켈린더 일정을 가져옴!
+		UCalendar c = bService.selectOneC(Integer.parseInt(id));
+		
+		//개인일정이거나, 전체 공유일정일 때 삭제함
+		if(cate.equals("m")||cate.equals("a")) {
+			c.setcStatus("N");
+		}else {
+		//공유된 일정일 경우 내 이름을 지움
+			Employee loginEmp = (Employee)session.getAttribute("loginEmp");
+			String myEmp = loginEmp.getEmpNo();
+			
+			String sEmp = c.getsEmp().substring(0, c.getsEmp().length()-1);
+			if(sEmp.contains(";")) {
+				String[] temp = sEmp.split(";");
+				sEmp="";
+				for(int i = 0 ; i < temp.length ; i++) {
+					if(!temp[i].contains(myEmp)) {
+						sEmp+=temp[i]+";";
+					}
+				}
+			}else {
+				sEmp="";
+			}
+			c.setsEmp(sEmp);
+		}
+		
+		int result = bService.cUpdate(c);
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+		
+	}
+	
 }

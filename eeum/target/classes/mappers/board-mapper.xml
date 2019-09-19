@@ -96,4 +96,23 @@
 		</if>
 	</select>
 	
+	<insert id="cinsert" parameterType="UCalendar">
+		 insert into CALENDAR values(SEQ_CALENDAR.nextval,#{empNo},#{cDate},#{cTitle},#{cStatus},#{cFDate},#{sEmp})
+	</insert>
+	<select id="selectAllCaledar" parameterType="string" resultType="UCalendar">
+		select *
+		from CALENDAR
+		where ((EMPNO like #{empNo} or  SEMP like #{empNo})and(CSTATUS = 'Y')) or (CSTATUS = 'A')
+	</select>
+	<select id="selectOneC" parameterType="int" resultType="UCalendar">
+		select *
+		from CALENDAR
+		where CNO = #{parseInt}
+	</select>
+	<update id="cUpdate" parameterType="UCalendar">
+		update CALENDAR
+		set SEMP = #{sEmp},CSTATUS = #{cStatus}
+		where cNo =#{cNo}
+	</update>
+	
 </mapper>
