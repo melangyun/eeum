@@ -93,4 +93,16 @@ public class EmployeeDAO {
 		return (ArrayList)sqlSession.selectList("empMapper.selectDeptEmp",deptNo);
 	}
 
+	public int chulgun(HashMap<String, String> map) {
+		return sqlSession.insert("empMapper.chulgun",map);
+	}
+
+	public HashMap<String, String> selectCommute(HashMap<String, String> keys) {
+		return sqlSession.selectOne("empMapper.selectCommute",keys);
+	}
+
+	public int updateCommute(HashMap<String, String> keys) {
+		return sqlSession.update("empMapper.updateCommute",keys);
+	}
+
 }

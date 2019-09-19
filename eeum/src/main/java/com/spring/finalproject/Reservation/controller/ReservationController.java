@@ -114,7 +114,6 @@ public class ReservationController {
 				}
 			}
 		}
-		System.out.println(result);
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
 		gson.toJson(result,response.getWriter());
 	}

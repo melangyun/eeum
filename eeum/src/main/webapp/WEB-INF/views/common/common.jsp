@@ -47,8 +47,7 @@
 		<!-- 컨텐츠 영역 -->
 		<div class="container-fluid">
 			<!-- 타이틀 영역 -->
-			<div
-				class="d-sm-flex align-items-center justify-content-between mb-4">
+			<div class="d-sm-flex align-items-center justify-content-between mb-4">
 				<h1 class="h3 mb-0 text-gray-800">Home</h1>
 			</div>
 

@@ -99,6 +99,21 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return eDAO.selectDeptEmp(deptNo);
 	}
 
+	@Override
+	public int chulgun(HashMap<String, String> map) {
+		return eDAO.chulgun(map);
+	}
+
+	@Override
+	public HashMap<String, String> selectCommute(HashMap<String, String> keys) {
+		return eDAO.selectCommute(keys);
+	}
+
+	@Override
+	public int updateCommute(HashMap<String, String> keys) {
+		return eDAO.updateCommute(keys);
+	}
+
 
 	
 }

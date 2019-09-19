@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,10 +18,11 @@
         </div>
         <div class="sidebar-brand-text mx-3">E-Eum<sup>sys</sup></div>
       </a>
-
+	
+		
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
-
+	
       <!-- 홈 -->
       <li class="nav-item active">
         <a class="nav-link" href="index.jsp">
@@ -72,7 +73,7 @@
        -->
        <!-- 회의실  -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Room" aria-expanded="true" aria-controls="collapseUtilities">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#Room" aria-expanded="true" aria-controls="collapseUtilities" id="recoM">
           <i class="fas fa-fw fa fa-coffee"></i>
           <span>회의실</span>
         </a>
@@ -103,7 +104,7 @@
 	
       <!-- 이메일 -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages" id="email">
           <i class="fas fa-fw fa fa-envelope-o"></i>
           <span>이메일</span>
         </a>
@@ -136,6 +137,7 @@
           <span>to-do</span></a>
       </li>
 	
+	<c:if test="${loginEmp.empStatus eq 'A' }">
    	<!-- 관리자 영역 -->
       <hr class="sidebar-divider d-none d-md-block">
       
@@ -145,14 +147,8 @@
       </div>
       
       
-<!-- 	<li class="nav-item">
-        <a class="nav-link" href="newEmp.do">
-          <i class="fas fa-fw fa fa-users"></i>
-          <span>인사관리</span></a>
-      </li> -->
-      
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#humanR" aria-expanded="true" aria-controls="collapsePages">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#humanR" aria-expanded="true" aria-controls="collapsePages" id="human">
           <i class="fas fa-fw fa fa-users"></i>
           <span>인사관리</span>
         </a>
@@ -163,7 +159,7 @@
             <a class="collapse-item" href="manageEmp.do">사원 관리</a>
         </div>
       </li>
-      
+      </c:if>
 		
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">

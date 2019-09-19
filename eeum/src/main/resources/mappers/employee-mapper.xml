@@ -136,4 +136,22 @@
 		where DEPTNO = #{deptNo} and EMPSTATUS != 'N'
 	</select>
 	
+	<insert id="chulgun" parameterType="map">
+		insert into COMMUTE values ( TO_DATE(#{Date},'yyyy-mm-dd hh24:mi:ss'), #{empNo}, NULL )
+	</insert>
+	
+	<select id="selectCommute" parameterType="map" resultType="map">
+		<![CDATA[
+		select *
+		from COMMUTE
+		where empNo =#{empNo} and (ATTEND between TO_DATE(#{start},'yyyy-mm-dd hh24:mi:ss') and to_date( #{date}, 'yyyy-mm-dd hh24:mi:ss') )
+		]]>
+	</select>
+	<update id="updateCommute">
+		<![CDATA[
+		update COMMUTE
+		set GOHOME = to_date( #{date}, 'yyyy-mm-dd hh24:mi:ss')
+		where empNo =#{empNo} and (ATTEND between TO_DATE(#{start},'yyyy-mm-dd hh24:mi:ss') and to_date( #{date}, 'yyyy-mm-dd hh24:mi:ss') )
+		]]>
+	</update>
 </mapper>

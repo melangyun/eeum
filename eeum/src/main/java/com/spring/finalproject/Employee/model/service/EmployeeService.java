@@ -40,6 +40,12 @@ public interface EmployeeService {
 
 	ArrayList<Employee> selectDeptEmp(String deptNo);
 
+	int chulgun(HashMap<String, String> map);
+
+	HashMap<String, String> selectCommute(HashMap<String, String> keys);
+
+	int updateCommute(HashMap<String, String> keys);
+
 
 
 

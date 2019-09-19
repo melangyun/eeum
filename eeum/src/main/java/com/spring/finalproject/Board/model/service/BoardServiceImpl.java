@@ -91,5 +91,10 @@ public class BoardServiceImpl implements BoardService {
 	public int cUpdate(UCalendar c) {
 		return bDAO.cUpdate(c);
 	}
+
+	@Override
+	public ArrayList<Board> selectNewBoard() {
+		return bDAO.selectNewBoard();
+	}
 	
 }

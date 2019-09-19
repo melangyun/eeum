@@ -39,4 +39,6 @@ public interface BoardService {
 
 	int cUpdate(UCalendar c);
 
+	ArrayList<Board> selectNewBoard();
+
 }

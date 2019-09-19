@@ -37,4 +37,10 @@ public class TodoServiceImpl implements TodoService{
 	public int updateTodo(Todo td) {
 		return tDAO.updateTodo(td);
 	}
+
+	@Override
+	public ArrayList<Todo> selectAllUndo(String empNo) {
+		return tDAO.selectAllUndo(empNo);
+	}
+
 }

@@ -114,5 +114,16 @@
 		set SEMP = #{sEmp},CSTATUS = #{cStatus}
 		where cNo =#{cNo}
 	</update>
-	
+	<select id="selectNewBoard" resultType="Board">
+		<![CDATA[
+		select *
+		from (
+    	select row_number() over(order by BDATE desc)as news, a.*
+    	from board a
+    	where BSTATUS='Y'
+    	) b
+		where b.news<=5
+		order by BDATE desc
+		]]>
+	</select>
 </mapper>

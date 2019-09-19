@@ -339,7 +339,9 @@
 
   </div>
   <jsp:include page="/WEB-INF/views/common/footer.jsp" flush="false"></jsp:include>
-
+	<script type="text/javascript">
+		$('#email').trigger('click');
+	</script>
 </body>
 
 </html>

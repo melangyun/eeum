@@ -84,4 +84,8 @@ public class BoardDAO {
 		return sqlSession.update("bMapper.cUpdate", c);
 	}
 
+	public ArrayList<Board> selectNewBoard() {
+		return (ArrayList)sqlSession.selectList("bMapper.selectNewBoard");
+	}
+
 }

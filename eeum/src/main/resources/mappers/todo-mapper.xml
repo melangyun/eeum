@@ -54,5 +54,11 @@
 		from todo
 		where empNo=#{empNo} and tImport=#{tImport} and tContent =#{tContent} and tTitle=#{tTitle} and TDONE is null
 	</select>
+	<select id="selectAllUndo" parameterType="string" resultType="Todo">
+		select *
+		from todo
+		where EMPNO = #{empNo} and TSTATUS ='Y'
+		order by TDATE desc
+	</select>
 	
 </mapper>

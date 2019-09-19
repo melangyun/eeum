@@ -17,4 +17,7 @@ public interface TodoService {
 
 	int updateTodo(Todo td);
 
+	ArrayList<Todo> selectAllUndo(String empNo);
+
+
 }

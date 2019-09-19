@@ -43,4 +43,8 @@ public class TodoDAO {
 		return sqlSession.update("tMapper.updateTodo", td);
 	}
 
+	public ArrayList<Todo> selectAllUndo(String empNo) {
+		return (ArrayList)sqlSession.selectList("tMapper.selectAllUndo",empNo);
+	}
+
 }
