@@ -114,7 +114,7 @@ body{
 }
 .btn{
   display: inline-block;
-  width: 49%;
+  width: 48%;
   height: 50px;
   border: none;
   background: linear-gradient(80deg, #71698B,rgb(20,20,50), #71698B);
@@ -198,9 +198,21 @@ body{
 
 	<script type="text/javascript">
 		$(document).on('click','#loginbtn',function(){
+			loginFun();
+		})
+		function loginFun(){
 			var empNo = $("#login_empNo").val();
 			var password = $("#login_password").val();
-			
+			if(empNo==""){
+				alert("아이디가 입력되지 않았습니다!");
+				$("#login_empNo").focus();
+				return;
+			}
+			if(password==""){
+				alert("비밀번호가 입력되지 않았습니다!");
+				$("#login_password").focus();
+				return;
+			}
 			$.ajax({
 				url:"login.do",
 				data:{empNo:empNo,password:password},
@@ -218,9 +230,24 @@ body{
 					}
 				}
 			});
-		})
+		}
 	
-	
+		$("#login_empNo").keydown(function(key) {
+	           if (key.keyCode == 13) {
+	        	   $("#login_password").focus();
+	           }
+          });
+		$("#empNo").keydown(function(key) {
+           if (key.keyCode == 13) {
+        	   $("#email").focus();
+           }
+       });
+       $("#login_password").keydown(function(key) {
+           if (key.keyCode == 13) {
+        	   loginFun();
+           }
+      });
+		
 		$(".txtb input").on("focus", function() {
 			$(this).addClass("focus");
 		});
@@ -237,6 +264,15 @@ body{
 		});
 		//메일 발송 버튼 눌렀을 때
 		$(document).on('click','#sendMail',function(){
+			findPwdFun();
+		});
+		$("#email").keydown(function(key) {
+	           if (key.keyCode == 13) {
+	        	   findPwdFun();
+	           }
+	      });
+		
+		function findPwdFun(){
 			var empNo = $("#empNo").val().trim();
 			var email = $("#email").val().trim();
 			
@@ -252,7 +288,6 @@ body{
 				$("#email").focus();
 				return;	
 			}
-			console.log(email);
 			$.ajax({
 				url:"email.do",
 				data:{empNo:empNo,email:email},
@@ -271,7 +306,7 @@ body{
 					}
 				}
 			});
-		});
+		}
 		
 		function sendEmail(empNo,empName,email){
 			$.ajax({

@@ -192,6 +192,8 @@ display: none;
 								퇴근 : ${map.GOHOME}
 								</c:if>
 							</p>
+							<p id="resultArea">
+							</p>
 						</div>
 						<c:if test="${empty map.ATTEND}">
 							<a id="commute" class="btn btn-primary btn-user btn-block" style="color: white;">
@@ -342,30 +344,60 @@ display: none;
 												if(data=="fail"){
 													alert("출근 등록에 실패했습니다.\n관리자에게 문의해주세요!");
 												}else{
-													$("#commute").fadeOut(1000);
-													setTimeout(function(){
-														$(".goHome").fadeIn(1000);
-														$(".chulgun").text("출근 : "+data);
-													}, 1000);
+													$("#commute").hide();
+													$(".goHome").fadeIn(1000);
+													$(".chulgun").text("출근 : "+data);
+													$(".zipgalle").text("퇴근 : 아직 퇴근 시간이 기록되지 않았어요!");
+														clock.start();
 												}
 											}
 										});
 									});
 									$(document).on('click','.goHome',function(){
-										$.ajax({
-											url:"goHome.do",
-											dataType:"json",
-											success:function(data){
-												if(data.result=="fail"){
-													alert("퇴근등록에 실패했습니다.\n관리자에게 문의해주세요!");
-												}else{
-													$(".goHome").fadeOut(1000);
-													$(".zipgalle").text(data.time);
+										console.log(watSub);
+										var result ="";
+										var check = false;
+										if(watSub<32400){
+											check = confirm("아직 근무 시간이 남아있습니다.\n정말로 퇴근하시겠습니까?");
+											$("#resultArea").css('color','red');
+											result = "조기퇴근";
+										}else{
+											check = confirm("정말로 퇴근하시겠습니까?");
+											result = "정상퇴근";
+											$("#resultArea").css('color','green');
+										}
+										if (check){
+											$.ajax({
+												url:"goHome.do",
+												dataType:"json",
+												success:function(data){
+													if(data.result=="fail"){
+														alert("퇴근등록에 실패했습니다.\n관리자에게 문의해주세요!");
+													}else{
+														$(".goHome").fadeOut(1000);
+														$(".zipgalle").text("퇴근 : "+data.map.GOHOME);
+														setTimeout(function(){
+														$("#resultArea").text(result);
+														}, 980);
+														clock.stop();
+													}
 												}
-											}
-										});
+											});
+										}
 									});
 									
+									$(document).ready(function(){
+										console.log("${map.GOHOME}");
+										setTimeout(function(){
+											if(watSub<32400 && "${map.GOHOME}"!=""){
+												$("#resultArea").css('color','red');
+												$("#resultArea").text("조기퇴근");
+											}else if(watSub>=32400 && "${map.GOHOME}"!=""){
+												$("#resultArea").css('color','green');
+												$("#resultArea").text("정상퇴근");
+											}
+										}, 100);
+									})
 									
 								</script>
 							</div>

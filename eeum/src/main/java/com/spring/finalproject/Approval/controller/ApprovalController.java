@@ -221,7 +221,7 @@ public class ApprovalController {
 	
 	//사람고르는 페이지로 넘어감
 	@RequestMapping("apporvalinsertView.do")
-	public ModelAndView apporvalinsertView(ModelAndView mv, @RequestParam("tag")String tag) {
+	public ModelAndView apporvalinsertView(ModelAndView mv, @RequestParam(value = "tag", required=false)String tag) {
 		ArrayList<Employee> list = eService.oSelectO();
 		ArrayList<Employee> deptlist = new ArrayList<Employee>();
 		ArrayList<Employee> teamlist = new ArrayList<Employee>();
@@ -294,9 +294,49 @@ public class ApprovalController {
 		}
 		aService.insertApproval(ap);
 		
-		mv.setViewName("redirect:approvalView.do");
+		//알람 insert!
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("aContents", loginEmp.getEmpName()+"님이 새로운 기안을 올렸습니다.");
+		map.put("aCate", "ap");
+		ArrayList<String> emp = new ArrayList<>();
 		
+		emp = splitEmp1(ap.gethEmp(),emp);
+		emp = splitEmp1(ap.getApprovalEmp(),emp);
+		emp = splitEmp2(ap.getRunEmp(),emp);
+		emp = splitEmp2(ap.getRefEmp(),emp);
+		map.put("emp", emp);
+		eService.insertAlert(map);
+		
+		mv.setViewName("redirect:approvalView.do");
 		return mv;
+	}
+	//알람 insert용....사원 다시 끊기...;;
+	public ArrayList<String> splitEmp1(String str, ArrayList<String> emp) {
+		if(!str.equals("")) {
+			if(str.contains(";")) {
+				String[] temp = str.split(";");
+				for(int i = 0 ; i < temp.length ; i++) {
+					emp.add(temp[i].substring(temp[i].indexOf("(") + 1, temp[i].indexOf(")")));
+				}
+			}else {
+				emp.add(str.substring(str.indexOf("(")+1, str.indexOf(")")));
+			}
+		}
+		return emp;
+	}
+	//구분자가 다르기때문에 메소드 2
+	public ArrayList<String> splitEmp2(String str, ArrayList<String> emp) {
+		if(!str.equals("")) {
+			if(str.contains(",")) {
+				String[] temp = str.split(",");
+				for(int i = 0 ; i < temp.length ; i ++) {
+					emp.add(temp[i].substring(temp[i].indexOf("(")+1,temp[i].indexOf(")")));
+				}
+			}else {
+				emp.add(str.substring(str.indexOf("(")+1,str.indexOf(")")));
+			}
+		}
+		return emp;
 	}
 	
 	//파일 rename

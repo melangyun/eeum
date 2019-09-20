@@ -45,11 +45,12 @@ public interface EmployeeService {
 	HashMap<String, String> selectCommute(HashMap<String, String> keys);
 
 	int updateCommute(HashMap<String, String> keys);
-
-
-
-
-
-
-
+	//알람 삽입!
+	int insertAlert(HashMap<String,Object> map);
+	
+	ArrayList<HashMap<String,Object>> selectAlert(String empNo);
+	
+	int updateAlert(HashMap<String,String> map);
+	//전체 알람 삭제(메일, 메일 아닌것)
+	int updateAllAlert(HashMap<String,String> map);
 }

@@ -137,21 +137,48 @@
 	</select>
 	
 	<insert id="chulgun" parameterType="map">
-		insert into COMMUTE values ( TO_DATE(#{Date},'yyyy-mm-dd hh24:mi:ss'), #{empNo}, NULL )
+		insert into COMMUTE values ( TO_DATE(replace(#{Date},' 24:',' 00:'),'yyyy-mm-dd hh24:mi:ss'), #{empNo}, NULL )
 	</insert>
-	
+	<!--자정이 되면 24시간으로 표기되어 에러..단순히 00시로 표기해주면 해결됨  -->
 	<select id="selectCommute" parameterType="map" resultType="map">
 		<![CDATA[
 		select *
 		from COMMUTE
-		where empNo =#{empNo} and (ATTEND between TO_DATE(#{start},'yyyy-mm-dd hh24:mi:ss') and to_date( #{date}, 'yyyy-mm-dd hh24:mi:ss') )
+		where empNo =#{empNo} and (ATTEND between TO_DATE(replace(#{start},' 24:',' 00:'),'yyyy-mm-dd hh24:mi:ss') and to_date( replace(#{date},' 24:',' 00:') , 'yyyy-mm-dd hh24:mi:ss') )
 		]]>
 	</select>
 	<update id="updateCommute">
 		<![CDATA[
 		update COMMUTE
-		set GOHOME = to_date( #{date}, 'yyyy-mm-dd hh24:mi:ss')
-		where empNo =#{empNo} and (ATTEND between TO_DATE(#{start},'yyyy-mm-dd hh24:mi:ss') and to_date( #{date}, 'yyyy-mm-dd hh24:mi:ss') )
+		set GOHOME = to_date( replace(#{date},' 24:',' 00:'), 'yyyy-mm-dd hh24:mi:ss')
+		where empNo =#{empNo} and (ATTEND between TO_DATE(replace(#{start},' 24:',' 00:'),'yyyy-mm-dd hh24:mi:ss') and to_date( replace(#{date},' 24:',' 00:'), 'yyyy-mm-dd hh24:mi:ss') )
 		]]>
 	</update>
+	
+	<insert id="insertAlert" parameterType="map">
+		insert into ALERT values(SEQ_ALERT.nextval,#{emp},#{aContents},default,sysdate,#{aCate})
+	</insert>
+	
+	<select id="selectAlert" resultType="map" parameterType="string">
+		select * from ALERT where EMPNO = #{empNo} and ASTATUS !='D'
+	</select>
+	
+	<update id="updateAlert" parameterType="map">
+		update ALERT
+		set ASTATUS = #{aStatus}
+		where ALERTNO = #{alertNo}
+	</update>
+	
+	<update id="updateAllAlert" parameterType="map">
+		update ALERT
+		set ASTATUS = 'D'
+		where EMPNO= #{empNo}
+		<if test="check == mail">
+		and ACATE = 'mail'
+		</if>
+		<if test="check == notMail">
+		and ACATE != 'mail'
+		</if>
+	</update>
+	
 </mapper>

@@ -240,7 +240,7 @@ public class EmployeeController {
 		e.setPhone(e.getPhone().replace(',', '-'));
 		e.setEmpphone(e.getEmpphone().replace(',', '-'));
 		e.setEmail(e.getEmail().replace(',', '@'));
-		int result = eService.updateEmp(e);
+		eService.updateEmp(e);
 
 		return "redirect:manageEmp.do?empNo=" + e.getEmpNo();
 	}

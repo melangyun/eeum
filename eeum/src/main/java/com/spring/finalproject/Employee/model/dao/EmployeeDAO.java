@@ -105,4 +105,26 @@ public class EmployeeDAO {
 		return sqlSession.update("empMapper.updateCommute",keys);
 	}
 
+	public int insertAlert(HashMap<String, Object> map) {
+			ArrayList<String> emps = (ArrayList) map.get("emp");
+			int result = 0;
+			for(int i = 0 ; i < emps.size() ; i++) {
+				map.put("emp", emps.get(i));
+				result += sqlSession.insert("empMapper.insertAlert", map);
+			}
+		return result;
+	}
+
+	public ArrayList<HashMap<String, Object>> selectAlert(String empNo) {
+		return (ArrayList)sqlSession.selectList("empMapper.selectAlert",empNo);
+	}
+
+	public int updateAlert(HashMap<String, String> map) {
+		return sqlSession.update("empMapper.updateAlert", map);
+	}
+
+	public int updateAllAlert(HashMap<String, String> map) {
+		return sqlSession.update("empMapper.updateAllAlert",map);
+	}
+
 }

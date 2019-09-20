@@ -59,7 +59,7 @@ public class MailController {
 	// 메일 전송
 	@RequestMapping(value = "sendEmail.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String sendEmail(@RequestParam("empNo") String empNo, @RequestParam("recieveEmp") String recieveEmp,
+	public String sendEmail(HttpSession session,@RequestParam("empNo") String empNo, @RequestParam("recieveEmp") String recieveEmp,
 			@RequestParam("eType") String eType, @RequestParam("eTitle") String eTitle,
 			@RequestParam("eContent") String eContent) {
 //		Employee e = new Employee();
@@ -73,7 +73,21 @@ public class MailController {
 		mail.seteTitle(eTitle);
 		mail.seteContent(eContent);
 		mail.setRecieveEmpName(recieveEmp);
+		
+		/************************알람 insert*******************************/
+		Employee loginEmp = (Employee) session.getAttribute("loginEmp");
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("aContents", loginEmp.getEmpName()+"님의 새로운 메일 : "+eTitle);
+		map.put("aCate", "mail ");
 
+		
+		ArrayList<String> emp = new ArrayList<>();
+		emp.add(recieveEmp.substring(recieveEmp.indexOf("( ")+2, recieveEmp.indexOf(" )")));
+		map.put("emp", emp);
+		
+		eService.insertAlert(map);
+
+		
 		int result = mService.sendEmail(mail);
 		if (result > 0) {
 			return "success";

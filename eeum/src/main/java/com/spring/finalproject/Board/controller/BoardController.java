@@ -332,22 +332,46 @@ public class BoardController {
 	
 	@RequestMapping("cinsert.do")
 	@ResponseBody
-	public String cinsert(@RequestParam("empNo")String empNo,
+	public String cinsert(HttpSession session,
+						  @RequestParam("empNo")String empNo,
 						  @RequestParam("cDate")String cDate,
 						  @RequestParam("cStatus")String cStatus,
 						  @RequestParam("cTitle")String cTitle,
 						  @RequestParam("sEmp")String sEmp,
 						  @RequestParam("cFDate")String cFDate) {
 		UCalendar c = new UCalendar();
-//		String[] temp = cFDate.split("-");
-//		cFDate=temp[0]+"-"+temp[1]+"-"+((Integer.parseInt(temp[2])+1)+"");
-		
 		c.setEmpNo(empNo);
 		c.setcDate(cDate);
 		c.setcStatus(cStatus);
 		c.setcTitle(cTitle);
 		c.setsEmp(sEmp);
 		c.setcFDate(cFDate);
+		
+		
+		/************************알람 insert*******************************/
+		if(!sEmp.equals("")) {
+			Employee loginEmp = (Employee) session.getAttribute("loginEmp");
+			HashMap<String,Object> map = new HashMap<>();
+			String[] temp = cDate.split("-");
+			map.put("aContents", loginEmp.getEmpName()+"님이 "+temp[1]+"/"+temp[2]+" 일새로운 일정을 공유했습니다.");
+			map.put("aCate", "cal");
+
+			
+			ArrayList<String> emp = new ArrayList<>();
+			String cutSEmp = sEmp.substring(0, sEmp.length()-1);
+			if(cutSEmp.contains(";")) {
+				String[] tempEmp = cutSEmp.split(";");
+				for(int i = 0 ; i < tempEmp.length ; i++) {
+					emp.add(tempEmp[i].substring(tempEmp[i].indexOf("(")+1, tempEmp[i].indexOf(")")));
+				}
+			}else {
+				emp.add(cutSEmp.substring(cutSEmp.indexOf("(")+1,cutSEmp.indexOf(")")));
+			}
+			map.put("emp", emp);
+			
+			
+			eService.insertAlert(map);
+		}
 		
 		int result = bService.cinsert(c);
 		if(result>0) {

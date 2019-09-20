@@ -193,12 +193,14 @@
                   </tbody>
                 </table>
                 <!--글쓰기 버튼  -->
+                <c:if test="${loginEmp.empStatus eq 'A' }">
                 <a href="bInsert.do" class="btn btn-primary btn-icon-split">
 					<span class="icon text-white-50">
 						<i class="fas fa-check"></i>
 					</span>
 					<span class="text" style="color: white">글쓰기</span>
 				</a>
+				</c:if>
 								<!-- 페이지 영역  -->
                	<div class="row" style="width: 90%; margin-left: 5%;">
                		<div class="pagination">

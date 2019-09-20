@@ -71,7 +71,8 @@ public class ReservationController {
 	
 	@RequestMapping("rinsert.do")
 	@ResponseBody
-	public String rinsert(@RequestParam("rDate")String rDate,
+	public String rinsert(HttpSession session,
+						  @RequestParam("rDate")String rDate,
 						  @RequestParam("mNo")int mNo,
 						  @RequestParam("empNo")String empNo,
 						  @RequestParam("joinEmp")String joinEmp,
@@ -84,6 +85,29 @@ public class ReservationController {
 		r.setJoinEmp(joinEmp);
 		r.setmTitle(mTitle);
 		r.setmContnet(mContnet);
+		
+		/************************알람 insert*******************************/
+			Employee loginEmp = (Employee) session.getAttribute("loginEmp");
+			HashMap<String,Object> map = new HashMap<>();
+			map.put("aContents", loginEmp.getEmpName()+"님이 '"+mTitle+"' 미팅을 공유했습니다.");
+			map.put("aCate", "room");
+
+			
+			ArrayList<String> emp = new ArrayList<>();
+			String cutSEmp = joinEmp.substring(0, joinEmp.length()-1);
+			if(cutSEmp.contains(";")) {
+				String[] tempEmp = cutSEmp.split(";");
+				for(int i = 0 ; i < tempEmp.length ; i++) {
+					emp.add(tempEmp[i].substring(tempEmp[i].indexOf("(")+1, tempEmp[i].indexOf(")")));
+				}
+			}else {
+				emp.add(cutSEmp.substring(cutSEmp.indexOf("(")+1,cutSEmp.indexOf(")")));
+			}
+			map.put("emp", emp);
+			
+			
+			eService.insertAlert(map);
+		
 		
 		int result = rService.rinsert(r);
 		if(result>0) {

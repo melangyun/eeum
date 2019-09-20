@@ -1,6 +1,7 @@
 package com.spring.finalproject;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,12 +15,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonIOException;
 import com.spring.finalproject.Approval.model.service.ApprovalService;
 import com.spring.finalproject.Approval.model.vo.Approval;
 import com.spring.finalproject.Board.model.service.BoardService;
@@ -182,14 +183,15 @@ public class HomeController {
 		keys.put("date", strDate);
 		keys.put("start", startOfDate);
 		
-		
 		HashMap<String,String> map = eService.selectCommute(keys);
 		mv.addObject("map",map);
+
 		mv.setViewName("home");
 		return mv;
 	}
 	
 	
+	//출근처리
 	@RequestMapping(value = "chulgun.do")
 	@ResponseBody
 	public String chulgun(HttpSession session) {
@@ -212,6 +214,7 @@ public class HomeController {
 		}
 	}
 	
+	//퇴근기록!
 	@RequestMapping("goHome.do")
 	public void goHome(HttpSession session,HttpServletResponse response) throws IOException {
 		Employee loginEmp = (Employee) session.getAttribute("loginEmp");
@@ -229,23 +232,24 @@ public class HomeController {
 		
 		//내 출근 기록!
 		HashMap<String,String> map = eService.selectCommute(keys);
-		String onSigan = map.get("ATTEND");
-		String ganSigan = map.get("GOHOME");
 		
 		//결과 반환용 map
-		HashMap<String,String> rMap = new HashMap<>();
+		HashMap<String,Object> rMap = new HashMap<>();
+		
 		
 		if(result>0) {
 			rMap.put("result","success");
 			rMap.put("time", strDate);
+			rMap.put("map", map);
 		}else {
 			rMap.put("result","fail");
 		}
 		
-		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd kk:mm:ss").create();
 		gson.toJson(rMap,response.getWriter());
 	}
 	
+	//갯마이 출근... -> 페이지 로딩시 불러올 나의 출근정보.(api동작)
 	@RequestMapping("getMychulgun.do")
 	public void getMychulgun(HttpSession session,HttpServletResponse response) throws IOException {
 		Employee loginEmp = (Employee) session.getAttribute("loginEmp");
@@ -265,4 +269,30 @@ public class HomeController {
 		gson.toJson(map,response.getWriter());
 	}
 	
+	//알람 영역!
+	@RequestMapping("selectAlert.do")
+	public void selectAlert(HttpServletResponse response, @RequestParam("empNo") String empNo) throws IOException {
+		ArrayList<HashMap<String,Object>> list =eService.selectAlert(empNo);
+		for(HashMap<String,Object> map : list) {
+			map.put("ACONTENTS", URLEncoder.encode((String) map.get("ACONTENTS"),"utf-8"));
+		}
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+	    gson.toJson(list,response.getWriter());
+	}
+	
+	//알람 전체삭제
+	@RequestMapping("nAllDelete.do")
+	@ResponseBody
+	public String NotmailAllDelete(@RequestParam("empNo")String empNo,@RequestParam("check")String check) {
+		HashMap<String,String> map = new HashMap<>();
+		map.put("empNo", empNo);
+		map.put("check", check);
+		int result = eService.updateAllAlert(map);
+		if(result>0) {
+			return "success";
+		}else {
+			return "fail";
+		}
+	}
 }

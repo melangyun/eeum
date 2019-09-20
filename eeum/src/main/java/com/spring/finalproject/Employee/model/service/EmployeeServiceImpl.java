@@ -114,6 +114,26 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return eDAO.updateCommute(keys);
 	}
 
+	@Override
+	public int insertAlert(HashMap<String, Object> map) {
+		return eDAO.insertAlert(map);
+	}
 
+	@Override
+	public ArrayList<HashMap<String, Object>> selectAlert(String empNo) {
+		return eDAO.selectAlert(empNo);
+	}
+
+	@Override
+	public int updateAlert(HashMap<String, String> map) {
+		return eDAO.updateAlert(map);
+	}
+
+	@Override
+	public int updateAllAlert(HashMap<String, String> map) {
+		return eDAO.updateAllAlert(map);
+	}
+
+	
 	
 }
