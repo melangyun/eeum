@@ -41,12 +41,12 @@
 		where empNo = #{empNo}
 	</update>
 	
-	<select id="selectListCount" resultType="_int">
+	<select id="selectListCount" parameterType="string" resultType="_int">
 		select count(*)
 		from EMPLOYEE
 		where EMPSTATUS != 'N'
 		AND DEPTNO != 'MMMMM'
-		<if test="cate != null">
+		<if test="deptNo != null">
 			AND	DEPTNO = #{deptNo}
 		</if>
 	</select>
@@ -57,7 +57,7 @@
 		JOIN DEPARTMENT USING (DEPTNO)
 		where EMPSTATUS != 'N'
 		AND DEPTNO != 'MMMMM'
-		<if test="cate != null">
+		<if test="deptNo != null">
 			AND	DEPTNO = #{deptNo}
 		</if>
 	</select>

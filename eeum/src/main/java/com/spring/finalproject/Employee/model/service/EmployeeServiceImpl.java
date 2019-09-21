@@ -16,9 +16,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 	
 	@Autowired EmployeeDAO eDAO;
 	
-	@Autowired
-	private JavaMailSender mailSender;	
-	
+	/*
+	 * @Autowired private JavaMailSender mailSender;
+	 */
 	@Override
 	public Employee selectEmp(Employee e) {
 		return eDAO.selectEmp(e);

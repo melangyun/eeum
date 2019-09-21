@@ -172,9 +172,8 @@ public class EmployeeController {
 
 		int listCount = 0;
 		// 선택 cate 에 따른 사원수 반환 - 없을 경우 동적쿼리로 조건없음, 전체조회!
-
 		String searchKey = "%" + search + "%";
-		if (search == null) {
+		if (search == null ||(search.equals("")&&!cate.equals(""))) {
 			listCount = eService.selectListCount(cate);
 		} else {
 			listCount = eService.SearchListCount(searchKey);
@@ -185,7 +184,7 @@ public class EmployeeController {
 		// pi로 선택 사원 리스트 가져오기
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 
-		if (search == null) {
+		if (search == null|| (search.equals("")&&!cate.equals(""))) {
 			empList = eService.selectEmpList(pi, cate);
 		} else {
 			empList = eService.selectSearchList(pi, searchKey);
@@ -312,9 +311,8 @@ public class EmployeeController {
 		}
 
 		int listCount = 0;
-
 		String searchKey = "%" + search + "%";
-		if (search == null) {
+		if (search == null|| (search.equals("")&&!cate.equals(""))) {
 			listCount = eService.selectListCount(cate);
 		} else {
 			listCount = eService.SearchListCount(searchKey);
@@ -325,7 +323,7 @@ public class EmployeeController {
 		// pi로 선택 사원 리스트 가져오기
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 
-		if (search == null) {
+		if (search == null|| (search.equals("")&&!cate.equals(""))) {
 			empList = eService.selectEmpList(pi, cate);
 		} else {
 			empList = eService.selectSearchList(pi, searchKey);
@@ -334,6 +332,7 @@ public class EmployeeController {
 		mv.addObject("deptlist", deptlist);
 		mv.addObject("teamlist", teamlist);
 		mv.addObject("empList", empList);
+		mv.addObject("cate", cate);
 		mv.addObject("pi", pi);
 		mv.addObject("search", search);
 		mv.setViewName("board/organization");

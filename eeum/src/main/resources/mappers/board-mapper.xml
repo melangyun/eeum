@@ -48,7 +48,7 @@
 	
 	<update id="boardUpdat">
 		update board
-		set btype=#{bType},BTITLE=#{bTitle},MODIFYDATE = sysdate
+		set btype=#{bType},BTITLE=#{bTitle},MODIFYDATE = sysdate, BCONTENT=#{bContent}
 		where bNo=#{bNo}
 	</update>
 	
