@@ -7,15 +7,30 @@
 <link href="${contextPath}/resources/flipClock/flipclock.css"rel="stylesheet" type="text/css">
 <script	src="${contextPath}/resources/flipClock/flipclock.js"></script>
 <style type="text/css">
+	
 	.timer {
-    zoom: 0.4;
-    -moz-transform: scale(0.4);
+	    zoom: 0.4;
+	    -moz-transform: scale(0.4);
 	}
 	.flip-clock-dot{
-	background-color: rgba(255,255,255,0.8);
+		background-color: rgba(255,255,255,0.8);
 	}
 	.timer a{
-	color: rgba(255,255,255,0.8);
+		color: rgba(255,255,255,0.8);
+	}
+	
+	.deleteOneA{
+		/* display:none */;
+		position: absolute;
+		right: 10px;
+		font-size:1rem;
+		cursor:pointer;
+		color:rgb(150,150,150);
+		vertical-align: middle;
+		z-index: 999;
+	}
+	.goDetail{
+		cursor: pointer;
 	}
 </style>
 
@@ -168,6 +183,7 @@
 				data:{empNo:empNo,check:check},
 				success:function(data){
 					if(data=="success"){
+						alertList();
 					}else{
 						alert("알람 업데이트에 실패하였습니다.\n잠시후에 다시 시도해주세요!");
 					}
@@ -199,20 +215,22 @@
 					var mCount = 0;
 					var aCount = 0;
 					
+					
+					for(var i in data){
 					var $area;
-					var link;
-					var $a = $('<a class="dropdown-item d-flex align-items-center" style="clear: both;">');
+					var $a = $('<a class="dropdown-item d-flex align-items-center oneAlert" style="clear: both;">');
+					var $input = $('<input type="hidden" class="link">');
+					var $input1 = $('<input type="hidden" class="alertNo">');
+					var $deleteSpan = $('<span class="deleteOneA">').text("x");
 					var $div1 = $('<div class="mr-3">');
 					var $div1_1;
 					var $i;
 					var $div2 = $("<div>");
 					var $div2_1 = $('<div class="small text-gray-500">');
-					var $span = $('<span class="font-weight-bold">');
-					
-					for(var i in data){
-						
+					var $span = $('<span class="font-weight-bold goDetail">');
+						$input1.val(data[i].ALERTNO);
 						if(data[i].ACATE=="mail"){
-							link = "mailReceive.do?eStatus=N";
+							$input.val("mailReceive.do?eStatus=N");
 							$area = $(".mailA_area");
 							$div1_1 = $('<div class="icon-circle bg-primary">');
 							$i = $('<i class="fa fa-envelope-o text-white">');
@@ -221,15 +239,15 @@
 							$area = $(".A_area");
 							
 							if(data[i].ACATE == 'ap'){
-								link = "approvalView.do";
+								$input.val("approvalView.do");
 								$div1_1 = $('<div class="icon-circle bg-secondary">');
 								$i = $('<i class="fa fa-file-o text-white">');
 							}else if(data[i].ACATE == 'cal'){
-								link = "calPage.do";
+								$input.val("calPage.do");
 								$div1_1 = $('<div class="icon-circle bg-success">');
 								$i = $('<i class="fa fa-calendar-o" text-white">');
 							}else if(data[i].ACATE == 'room'){
-								link ="rListView.do";
+								$input.val("rListView.do");
 								$div1_1 = $('<div class="icon-circle bg-info">');
 								$i = $('<i class="fa fa-commenting-o" text-white">');
 							}
@@ -243,9 +261,11 @@
 						$span.text(decodeURIComponent(data[i].ACONTENTS.replace(/\+/g, " ")));
 						$div2.append($span);
 						
-						$a.attr('href',link);
+						$a.append($input1);
+						$a.append($input);
 						$a.append($div1);
-						$a.append($div2);						
+						$a.append($div2);	
+						$a.append($deleteSpan);
 						$area.append($a);
 					}
 					$("#aCount").text(aCount);
@@ -258,7 +278,7 @@
 					}else{
 						$("#mCount").show();
 						$("#mailAllDelete").show();
-						$(".mailA_area").css('text-align','left');
+						$(".mailA_area").css('text-align','left').css('padding','0');
 					}
 					if(aCount==0){
 						$("#aCount").hide();
@@ -267,7 +287,7 @@
 					}else{
 						$("#aCount").show();
 						$("#NotmailAllDelete").show();
-						$(".A_area").css('text-align','left');
+						$(".A_area").css('text-align','left').css('padding','0');
 					}
 				},
 				error : function(){
@@ -276,7 +296,36 @@
 
 			});
 		}
+		$(document).on('click','.deleteOneA',function(){
+			var alertNo = $(this).closest('a').find('.alertNo').val();
+			var aStatus = 'D';
+			updateAlert(aStatus,alertNo);
+			/* $(this).hide(); */
+		});
 		
+		$(document).on('click','.goDetail',function(){
+			var link = $(this).closest('a').find('.link').val();
+			var alertNo = $(this).closest('a').find('.alertNo').val();
+			var aStatus = 'Y';
+			
+			updateAlert(aStatus,alertNo);
+			location.href=link;
+		});
+		
+		function updateAlert(aStatus,alertNo){
+			$.ajax({
+				url:"aOneUpdate.do",
+				type:"post",
+				data:{alertNo:alertNo,aStatus:aStatus},
+				success:function(data){
+					if(data=="success"){
+						alertList();
+					}else{
+						alert("상태 업데이트에 실패하였습니다.\n잠시 후 다시 시도해 주세요!");
+					}
+				}
+			});
+		}
 </script>
 </body>
 </html>

@@ -190,7 +190,8 @@ public class EmployeeController {
 		} else {
 			empList = eService.selectSearchList(pi, searchKey);
 		}
-
+		
+		mv.addObject("cate", cate);
 		mv.addObject("deptlist", deptlist);
 		mv.addObject("teamlist", teamlist);
 		mv.addObject("empList", empList);

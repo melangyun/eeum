@@ -1,4 +1,4 @@
-3<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page language="java" contentType= "text/html; charset=UTF-8" pageEncoding= "UTF-8" %>
 <!DOCTYPE html>
@@ -9,32 +9,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <title>GroupWare</title>
-<!-- Custom fonts for this template-->
-<link href="${contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
+<link href="${contextPath}/resources/bootstrap/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-<!-- Bootstrap core JavaScript-->
 <script	src="${contextPath}/resources/bootstrap/vendor/jquery/jquery.min.js"></script>
 <script	src="${contextPath}/resources/bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
 <script src="${contextPath}/resources/bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
 <script src="${contextPath}/resources/bootstrap/js/sb-admin-2.min.js"></script>
-
-<!-- Page level plugins -->
 <script src="${contextPath}/resources/bootstrap/vendor/chart.js/Chart.min.js"></script>
-
-<!-- Page level custom scripts -->
 <script src="${contextPath}/resources/bootstrap/js/demo/chart-area-demo.js"></script>
 <script src="${contextPath}/resources/bootstrap/js/demo/chart-pie-demo.js"></script>
-
-<!-- Custom styles for this template-->
 <link href="${contextPath}/resources/bootstrap/css/sb-admin-2.min.css" rel="stylesheet">
 <script src="https://kit.fontawesome.com/fbd170e696.js"></script>
-
 <!-- 다음 주소찾기 API -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
@@ -46,13 +31,6 @@
 </head>
 
 <body id="page-top">
-	<c:set var="empNo" value="${empNo}"/>
-	<c:if test="${!empty empNo}">
-		<script>
-			alert("${empNo} 사번이 생성되었습니다.");
-		</script>
-	</c:if>
-	<!-- 메인레버 -->
 	<div id="wrapper">
 		<!-- 사이드바 -->
 		<jsp:include page="/WEB-INF/views/common/sidebar.jsp" flush="false"></jsp:include>

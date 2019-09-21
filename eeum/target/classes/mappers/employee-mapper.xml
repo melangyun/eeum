@@ -26,7 +26,7 @@
 	
 	<insert id="insertEmp" parameterType="Employee">
 		insert into EMPLOYEE
-		values (#{deptNo}||seq_emp.nextval,#{empName},#{deptNo},#{empPosition},#{joinDate},#{phone},#{empphone},#{email},#{address},default,default,'password')
+		values (#{deptNo}||seq_emp.nextval,#{empName},#{deptNo},#{empPosition},#{joinDate},#{phone},#{empphone},#{email},#{address},default,'password')
 	</insert>
 	
 	<select id="selectNewEmp" resultType="string">
@@ -160,7 +160,7 @@
 	</insert>
 	
 	<select id="selectAlert" resultType="map" parameterType="string">
-		select * from ALERT where EMPNO = #{empNo} and ASTATUS !='D'
+		select * from ALERT where EMPNO = #{empNo} and ASTATUS ='N'
 	</select>
 	
 	<update id="updateAlert" parameterType="map">

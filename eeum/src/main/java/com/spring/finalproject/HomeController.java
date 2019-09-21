@@ -295,4 +295,20 @@ public class HomeController {
 			return "fail";
 		}
 	}
+	
+	//알람 하나 삭제 and update
+	@RequestMapping("aOneUpdate.do")
+	@ResponseBody
+	public String aOneUpdate(@RequestParam("aStatus")String aStatus, @RequestParam("alertNo")String alertNo) {
+		HashMap<String,String> map = new HashMap<>();
+		map.put("aStatus", aStatus);
+		map.put("alertNo", alertNo);
+		int result = eService.updateAlert(map);
+		if(result>0) {
+			return "success";
+		}else{
+			return "fail";
+		}
+	}
+	
 }

@@ -102,13 +102,25 @@
 								<c:if test="${fn:startsWith(tDeptNo,dDeptNo)}">
 									<c:choose>
 										<c:when test="<%=i==0 %>">
-											<td>${tl.deptName}( ${tDeptNo} )</td>
+											<td>
+												${tl.deptName}( ${tDeptNo} )
+												<span class="select" style="position: absolute;right:4rem; cursor: pointer;">
+													<input class="deptNo" type="hidden" value="${tDeptNo}">
+													<i class="fa fa-arrow-right" aria-hidden="true"></i>
+												</span>
+											</td>
 										</c:when>
 										<c:otherwise>
 											</tr>
 											<tr>
 											<td></td>
-											<td>${tl.deptName}( ${tDeptNo} )</td>
+											<td>
+												${tl.deptName}( ${tDeptNo} )
+												<span class="select" style="position: absolute;right: 4rem; cursor: pointer;">
+													<input class="deptNo" type="hidden" value="${tDeptNo}">
+													<i class="fa fa-arrow-right" aria-hidden="true"></i>
+												</span>
+											</td>
 										</c:otherwise>
 									</c:choose>
 									<% i++; %>
@@ -119,6 +131,14 @@
 					</c:forEach>
                   </tbody>
                 </table>
+                <script type="text/javascript">
+                	$(document).on('click','.select',function(){
+                		var deptNo = $(this).find(".deptNo").val();
+                		$("tr").css('background','none');
+                		$(this).closest("tr").css('background','rgb(235,235,235)');
+                		$("#dapt_Code").val(deptNo);
+                	});
+                </script>
               </div>
             </div>
 					</div>
@@ -135,32 +155,32 @@
 							</colgroup>
 							<tr>
 								<td style="vertical-align: middle">이름</td>
-								<td><input type="text" name="empName" class="form-control form-control-user" style="width: 50%;"></td>
+								<td><input type="text" name="empName" id="name" class="form-control form-control-user" style="width: 50%;"></td>
 							</tr>
 							<tr>
 								<td style="vertical-align: middle">소속부서코드</td>
-								<td><input type="text" name="deptNo" class="form-control form-control-user" style="width: 70%;"></td>
+								<td><input type="text" id="dapt_Code" id="dept" name="deptNo" class="form-control form-control-user" style="width: 70%;" readonly="readonly"></td>
 							</tr>
 							<tr>
 								<td style="vertical-align: middle">직급</td>
-								<td><input type="number" min="1" max="9" name="empPosition" class="form-control form-control-user" style="width: 50%;"></td>
+								<td><input type="number" id="position" min="1" max="9" name="empPosition" class="form-control form-control-user" style="width: 50%;"></td>
 							</tr>
 							<tr>
 								<td style="vertical-align: middle">입사일</td>
-								<td><input type="date" name="joinDate" class="form-control form-control-user" style="width: 50%;"></td>
+								<td><input type="date" id="joinDate" name="joinDate" class="form-control form-control-user" style="width: 50%;"></td>
 							</tr>
 							<tr>
 								<td style="vertical-align: middle">개인번호</td>
 								<td>
 									<div class="row">
 										<div class="col-sm-3 mb-sm-0">
-											<input type="text" name="phone" class="form-control form-control-user">
+											<input type="text" id="phone1" name="phone" class="form-control form-control-user">
 										</div>
 										<div class="col-sm-3">
-											<input type="text" name="phone" class="form-control form-control-user">
+											<input type="text" id="phone2" name="phone" class="form-control form-control-user">
 										</div>
 										<div class="col-sm-3">
-											<input type="text" name="phone" class="form-control form-control-user">
+											<input type="text" id="phone3" name="phone" class="form-control form-control-user">
 										</div>
 									</div>
 								</td>
@@ -170,13 +190,13 @@
 								<td>
 									<div class="row">
 										<div class="col-sm-3 mb-sm-0">
-											<input type="text" name="empphone" class="form-control form-control-user">
+											<input type="text" id= "empphone1" name="empphone" class="form-control form-control-user">
 										</div>
 										<div class="col-sm-3">
-											<input type="text" name="empphone" class="form-control form-control-user">
+											<input type="text" id="empphone2" name="empphone" class="form-control form-control-user">
 										</div>
 										<div class="col-sm-3">
-											<input type="text" name="empphone" class="form-control form-control-user">
+											<input type="text" id="empphone3" name="empphone" class="form-control form-control-user">
 										</div>
 									</div>
 								</td>
@@ -186,10 +206,10 @@
 								<td>
 									<div class="row">
 										<div class="col-sm-5 mb-sm-0">
-											<input type="text" name="email" class="form-control form-control-user">
+											<input type="text" id="email1" name="email" class="form-control form-control-user">
 										</div>
 										<div class="col-sm-5">
-											<input type="text" name="email" class="form-control form-control-user">
+											<input type="text" id="email2" name="email" class="form-control form-control-user">
 										</div>
 									</div>
 								</td>
@@ -268,6 +288,74 @@
 						</a>
 						<script type="text/javascript">
 							function confirm(){
+								var name = $("#name").val();
+								var dept = $("#dept").val();
+								var position = $("#position").val();
+								var joinDate = $("#joinDate").val();
+								var phone1 = $("#phone1").val();
+								var phone2 = $("#phone2").val();
+								var phone3 = $("#phone3").val();
+								var empphone1= $("#empphone1").val();
+								var empphone2= $("#empphone2").val();
+								var empphone3= $("#empphone3").val();
+								var empphone2= $("#empphone2").val();
+								var empphone3= $("#empphone3").val();
+								var email1= $("#email1").val();
+								var email2= $("#email2").val();
+								var postcode = $("#postcode").val();
+								if(name==""){
+									alert("이름이 입력되지 않았습니다!");
+									$("$input").focus();
+									return;
+								}
+								if(dept==""){
+									alert("부서코드는 비어있을 수 없습니다!");
+									return;
+								}
+								if(position==""){
+									alert("직급은 비어있을 수 없습니다!");
+									return;
+								}
+								if(joinDate==""){
+									alert("입사일은 비어있을수 없습니다!");
+									return;
+								}
+								if(phone1==""||phone2==""||phone3==""){
+									alert("개인번호를 확인해주세요!");
+									$("#phone1").focus();
+									$("#phone1").val("");
+									$("#phone2").val("");
+									$("#phone3").val("");
+									return;
+								}
+								if(phone1==""||phone2==""||phone3==""){
+									alert("개인번호를 확인해주세요!");
+									$("#phone1").focus();
+									$("#phone1").val("");
+									$("#phone2").val("");
+									$("#phone3").val("");
+									return;
+								}
+								if(empphone1==""||empphone2==""||empphone3==""){
+									alert("내선번호를 확인해주세요!");
+									$("#empphone1").focus();
+									$("#empphone1").val("");
+									$("#empphone2").val("");
+									$("#empphone3").val("");
+									return;
+								}
+								if(email1==""||email2==""){
+									alert("이메일을 확인해주세요!");
+									$("#email1").focus();
+									$("#email1").val("");
+									$("#email2").val("");
+									return;
+								}
+								if(postcode==""){
+									alert("우편번호를 입력해주세요!");
+									return;
+								}
+								
 								document.newEmpForm.method="post";
 								document.newEmpForm.action="insertNewEmp.do";
 								document.newEmpForm.submit();

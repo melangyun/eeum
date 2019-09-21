@@ -354,7 +354,6 @@ display: none;
 										});
 									});
 									$(document).on('click','.goHome',function(){
-										console.log(watSub);
 										var result ="";
 										var check = false;
 										if(watSub<32400){
