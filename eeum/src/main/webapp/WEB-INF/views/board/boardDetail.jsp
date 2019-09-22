@@ -128,6 +128,8 @@
 						  <div id="buttons">
 							  	<c:url var="blist" value="notice.do">
 									<c:param name="page" value="${ page }"/>
+									<c:param name="cate" value="${cate}"/>
+                			  		<c:param name="search" value="${search}"/>
 								</c:url>
 							  <button type="button" onclick="location.href='${ blist }'" class="btn btn-secondary">목록으로</button>
 						  </div>

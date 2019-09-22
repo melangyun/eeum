@@ -149,7 +149,10 @@ public class BoardController {
 	
 	//글보기
 	@RequestMapping("bdetail.do")
-	public ModelAndView boardDetail(@RequestParam("bNo") int bNo, @RequestParam("page") int page, ModelAndView mv) {
+	public ModelAndView boardDetail(@RequestParam(value="search", required=false)String search,
+									@RequestParam(value="cate", required =false)String cate,
+									@RequestParam("bNo") int bNo,
+									@RequestParam("page") int page, ModelAndView mv) {
 		int result = bService.addBoardCount(bNo);
 		Board board = bService.selectBoard(bNo);
 		if(board!=null && result>0) {

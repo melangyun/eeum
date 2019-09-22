@@ -146,6 +146,8 @@
                   	<!-- 상단 노출수  -->
                   	<c:forEach var="i" items="${important}" >
                   	<c:url var="bdetail" value="bdetail.do">
+                  		<c:param name="cate" value="${cate}"/>
+                  		<c:param name="search" value="${search}"/>
                   		<c:param name="bNo" value="${i.bNo}"/>
                   		<c:param name="page" value="${ pi.currentPage }"/>
                   	</c:url>
@@ -168,6 +170,8 @@
 					<!-- 일반 노출부  -->
 					<c:forEach var="n" items="${normal}" >
 					<c:url var="bdetail" value="bdetail.do">
+						<c:param name="cate" value="${cate}"/>
+                  		<c:param name="search" value="${search}"/>
                   		<c:param name="bNo" value="${n.bNo}"/>
                   		<c:param name="page" value="${ pi.currentPage }"/>
                   	</c:url>

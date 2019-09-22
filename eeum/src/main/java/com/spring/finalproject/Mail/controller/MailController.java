@@ -78,7 +78,7 @@ public class MailController {
 		Employee loginEmp = (Employee) session.getAttribute("loginEmp");
 		HashMap<String,Object> map = new HashMap<>();
 		map.put("aContents", loginEmp.getEmpName()+"님의 새로운 메일 : "+eTitle);
-		map.put("aCate", "mail ");
+		map.put("aCate", "mail");
 
 		
 		ArrayList<String> emp = new ArrayList<>();

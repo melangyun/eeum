@@ -223,9 +223,12 @@
 									<c:if test="${pi.currentPage > 1}">
 										<c:url var="before" value="manageEmp.do">
 											<c:param name="page" value="${ pi.currentPage - 1 }"/>
-											<c:param name="search" value="${search}"/>
-											<c:param name="cate" value="${cate}"/>
-											<c:param name="cate"></c:param>
+											<c:if test="${!empty search}">
+												<c:param name="search" value="${search}"/>
+											</c:if>
+											<c:if test="${!empty cate}">
+												<c:param name="cate" value="${cate}"/>
+											</c:if>
 										</c:url>
 										<a href="${ before }">&laquo;</a>
 									</c:if>
@@ -239,8 +242,12 @@
 										<c:if test="${ p ne pi.currentPage }">
 											<c:url var="pagination" value="manageEmp.do">
 												<c:param name="page" value="${ p }"/>
+												<c:if test="${!empty search}">
 												<c:param name="search" value="${search}"/>
+											</c:if>
+											<c:if test="${!empty cate}">
 												<c:param name="cate" value="${cate}"/>
+											</c:if>
 											</c:url>
 											<a href="${ pagination }">${ p }</a> &nbsp;
 										</c:if>
@@ -253,8 +260,12 @@
 									<c:if test="${ pi.currentPage < pi.maxPage }">
 										<c:url var="after" value="manageEmp.do">
 											<c:param name="page" value="${ pi.currentPage + 1 }"/>
-											<c:param name="search" value="${search}"/>
-											<c:param name="cate" value="${cate}"/>
+											<c:if test="${!empty search}">
+												<c:param name="search" value="${search}"/>
+											</c:if>
+											<c:if test="${!empty cate}">
+												<c:param name="cate" value="${cate}"/>
+											</c:if>
 										</c:url> 
 										<a href="${ after }">&raquo;</a>
 									</c:if>

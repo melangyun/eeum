@@ -141,7 +141,7 @@ public class EmployeeController {
 		}
 	}
 
-	// 사원 관리
+	// 사원 관리 - 발표 후에 코드 다시짜는게 나을듯..
 	@RequestMapping("manageEmp.do")
 	public ModelAndView empManage(@RequestParam(value = "cate", required = false) String cate,
 			@RequestParam(value = "page", required = false) Integer page,
@@ -173,20 +173,49 @@ public class EmployeeController {
 		int listCount = 0;
 		// 선택 cate 에 따른 사원수 반환 - 없을 경우 동적쿼리로 조건없음, 전체조회!
 		String searchKey = "%" + search + "%";
-		if (search == null ||(search.equals("")&&!cate.equals(""))) {
+		/*if (search == null ||search != null && (search.equals("")&&!cate.equals(""))) {
 			listCount = eService.selectListCount(cate);
 		} else {
 			listCount = eService.SearchListCount(searchKey);
+		}*/
+		
+		int count = 0;
+		if(search == null) {
+			listCount = eService.selectListCount(cate);
+			count++;
 		}
-
+		if(search != null) {
+			if(search.equals("")) {
+				listCount = eService.selectListCount(cate);	
+				count++;
+			}
+		}
+		if(count==0) {
+			listCount = eService.SearchListCount(searchKey);
+		}
+		count=0;
+		
 		ArrayList<Employee> empList = null;
 
 		// pi로 선택 사원 리스트 가져오기
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 
-		if (search == null|| (search.equals("")&&!cate.equals(""))) {
+//		if (search == null|| (search.equals("")&&!cate.equals(""))) {
+//			empList = eService.selectEmpList(pi, cate);
+//		} else {
+//			empList = eService.selectSearchList(pi, searchKey);
+//		}
+		if(search == null) {
 			empList = eService.selectEmpList(pi, cate);
-		} else {
+			count++;
+		}
+		if(search != null) {
+			if(search.equals("")) {
+				empList = eService.selectEmpList(pi, cate);
+				count++;
+			}
+		}
+		if(count==0) {
 			empList = eService.selectSearchList(pi, searchKey);
 		}
 		
@@ -312,20 +341,48 @@ public class EmployeeController {
 
 		int listCount = 0;
 		String searchKey = "%" + search + "%";
-		if (search == null|| (search.equals("")&&!cate.equals(""))) {
+//		if (search == null|| (search.equals("")&&!cate.equals(""))) {
+//			listCount = eService.selectListCount(cate);
+//		} else {
+//			listCount = eService.SearchListCount(searchKey);
+//		}
+		int count = 0;
+		if(search == null) {
 			listCount = eService.selectListCount(cate);
-		} else {
+			count++;
+		}
+		if(search != null) {
+			if(search.equals("")) {
+				listCount = eService.selectListCount(cate);	
+				count++;
+			}
+		}
+		if(count==0) {
 			listCount = eService.SearchListCount(searchKey);
 		}
-
+		count=0;
+		
 		ArrayList<Employee> empList = null;
 
 		// pi로 선택 사원 리스트 가져오기
 		PageInfo pi = Pagination.getPageInfo(currentPage, listCount);
 
-		if (search == null|| (search.equals("")&&!cate.equals(""))) {
+//		if (search == null|| (search.equals("")&&!cate.equals(""))) {
+//			empList = eService.selectEmpList(pi, cate);
+//		} else {
+//			empList = eService.selectSearchList(pi, searchKey);
+//		}
+		if(search == null) {
 			empList = eService.selectEmpList(pi, cate);
-		} else {
+			count++;
+		}
+		if(search != null) {
+			if(search.equals("")) {
+				empList = eService.selectEmpList(pi, cate);
+				count++;
+			}
+		}
+		if(count==0) {
 			empList = eService.selectSearchList(pi, searchKey);
 		}
 
@@ -352,19 +409,19 @@ public class EmployeeController {
 	public String changePwd(@RequestParam("pwd") String pwd, @RequestParam("new_pwd1") String new_pwd1,
 			HttpSession session) {
 		Employee loginEmp = (Employee) session.getAttribute("loginEmp");
-
+		System.out.println(pwd);
 		if (bcryptPasswordEncoder.matches(pwd, loginEmp.getPassword())) {
-			pwd = bcryptPasswordEncoder.encode(pwd);
+			pwd = bcryptPasswordEncoder.encode(new_pwd1);
 
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("empNo", loginEmp.getEmpNo());
 			map.put("pwd", pwd);
-
+			
 			int result = eService.changePwd(map);
 			if (result > 0) {
 				return "비밀번호가 성공적으로 변경되었습니다.";
 			} else {
-				throw new EmpException("비밀번호 변경에 실패하였습니다.");
+				return("비밀번호 변경에 실패하였습니다.\n관리자에게 문의해주세요");
 			}
 		} else {
 			return "비밀번호가 틀렸습니다.";

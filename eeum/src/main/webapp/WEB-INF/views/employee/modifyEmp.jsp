@@ -171,7 +171,7 @@
 							</tr>
 							<tr>
 								<td style="vertical-align: middle">입사일</td>
-								<td><input type="date" name="joinDate" value="${emp.joinDate}" class="form-control form-control-user" style="width: 50%;"></td>
+								<td><input type="date" name="joinDate" value="${emp.joinDate}" class="form-control form-control-user" style="width: 50%;" readonly></td>
 							</tr>
 							<tr>
 								<c:set var="phone" value="${emp.phone}"/>
