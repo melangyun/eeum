@@ -14,8 +14,8 @@
 				null, 
 				#{dDate}, 
 				default, 
-				null, 
-				null, 
+				#{a_v_first}, 
+				#{a_v_last}, 
 				#{originalFile}, 
 				#{renameFile}, 
 				#{hEmp})

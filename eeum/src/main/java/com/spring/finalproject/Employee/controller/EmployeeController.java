@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -48,9 +46,6 @@ public class EmployeeController {
 	// 암호화
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
-
-	// 로그
-	private Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
 	@Autowired
 	private JavaMailSender mailSender;

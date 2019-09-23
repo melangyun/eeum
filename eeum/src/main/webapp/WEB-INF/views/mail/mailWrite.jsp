@@ -219,8 +219,6 @@
 				var eContent = $("#summernote").val();
 				var recieveEmp = $("#recieveEmp").val().trim();
 				var empNo = "${loginEmp.empNo}";
-				console.log(empNo);
-				console.log(recieveEmp);
 				
 				if(recieveEmp==""){
 					alert("받는이를 입력해주세요!");
@@ -255,7 +253,7 @@
 					eType ="외부";
 				}
 				var eStatus = 'N';
-				if(recieveEmp == empNo){
+				if(recieveEmp.includes(empNo)){
 					eStatus = 'M';
 				}
 				

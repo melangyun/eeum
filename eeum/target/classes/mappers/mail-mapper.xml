@@ -15,7 +15,7 @@
 	
 	<insert id="sendEmail" parameterType="Mail">
 		insert into email
-		values (seq_email.nextval,#{empNo}, #{recieveEmp}, #{eType}, #{eTitle},#{eContent},default,null,sysdate,#{recieveEmpName})
+		values (seq_email.nextval,#{empNo}, #{recieveEmp}, #{eType}, #{eTitle},#{eContent},#{eStatus},null,sysdate,#{recieveEmpName})
 	</insert>
 	
 	<select id="SearchMListCount" parameterType="map" resultType="_int">

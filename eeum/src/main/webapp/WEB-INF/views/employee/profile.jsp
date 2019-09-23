@@ -264,6 +264,7 @@ figure.snip1382.hover figcaption p {
                 		var new_pwd1 = $("#new_pwd1").val();
                 		var new_pwd2 = $("#new_pwd2").val();
                 		var pwd= $("#pwd").val();
+                		var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
                 		
                 		if(new_pwd1=="" ||new_pwd2==""|| pwd=="" ){
                 			alert("기존 비밀번호와 비밀번호 확인은 공백일 수 없습니다.");
@@ -274,6 +275,12 @@ figure.snip1382.hover figcaption p {
                 			alert("비밀번호 확인이 일치하지 않습니다.");
                 			return;
                 		}
+                		
+                		if(false === reg.test(new_pwd1)) {
+                		    alert('비밀번호는 8자 이상이어야 하며,\n숫자/대문자/소문자/특수문자를 모두 포함해야 합니다.');
+                		    return;
+                		}
+
                 		
                 		$.ajax({
                 			url:"changePwd.do",

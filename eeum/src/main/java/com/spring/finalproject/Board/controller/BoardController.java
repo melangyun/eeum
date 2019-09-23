@@ -368,7 +368,7 @@ public class BoardController {
 					emp.add(tempEmp[i].substring(tempEmp[i].indexOf("(")+2, tempEmp[i].indexOf(")")-1));
 				}
 			}else {
-				emp.add(cutSEmp.substring(cutSEmp.indexOf("(")+1,cutSEmp.indexOf(")")));
+				emp.add(cutSEmp.substring(cutSEmp.indexOf("(")+1,cutSEmp.indexOf(")")).trim());
 			}
 			map.put("emp", emp);
 			

@@ -3,6 +3,7 @@ package com.spring.finalproject.Approval.controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -277,7 +278,11 @@ public class ApprovalController {
 	public ModelAndView insertApproval(@ModelAttribute Approval ap,ModelAndView mv,HttpSession session,
 								 @RequestParam(value="uploadFile",required= false)MultipartFile uploadFile,
 								HttpServletRequest request) {
-		 
+		Date last = ap.getA_v_last();
+		if(last!=null) {
+			
+		}
+		
 		ap.setApprovalEmp(insertMethod(ap.getApprovalEmp()));
 		if(!ap.gethEmp().equals("")) {
 			ap.sethEmp(insertMethod(ap.gethEmp()));

@@ -103,7 +103,7 @@
 			    		    ['Insert',['picture','link','video','table']],
 			    		    ['Misc',['codeview']]
 			    		  ],
-			    	disableDragAndDrop: true,
+			    	disableDragAndDrop: false,
 			    	placeholder: '내용을 입력해주세요',
 			        height: 500,
 			        minHeight: 500,
@@ -130,9 +130,7 @@
 			        	enctype: 'multipart/form-data',
 			        	processData: false,
 			        	success: function(data) {
-			        		console.log(data);
 			        		var renameFile ="${ contextPath }/resources/buploadFiles/" + data;
-			        		console.log(renameFile);
 			        		$("#summernote").summernote('insertImage', renameFile);
 
 			        	}

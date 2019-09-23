@@ -114,7 +114,7 @@
         <!-- 상단바 영역 끝! -->
 <script type="text/javascript">
 	var clock;
-	var watSub;
+	var watSub=0;
 
 	var setDate = new Date();
 	/* var clock; */
@@ -166,7 +166,6 @@
 		$(document).on('click','#NotmailAllDelete',function(){
 			var empNo = "${loginEmp.empNo}";
 			var check = "notMail";
-			console.log("들어오니?");
 			nAllDelete(empNo,check);
 		});
 		//클릭시 전체 알림 삭제!(메일만)
@@ -300,7 +299,6 @@
 			var alertNo = $(this).closest('a').find('.alertNo').val();
 			var aStatus = 'D';
 			updateAlert(aStatus,alertNo);
-			/* $(this).hide(); */
 		});
 		
 		$(document).on('click','.goDetail',function(){

@@ -293,16 +293,6 @@
 				 $("#sendTime").text(sendTime);
 				 $("#eContent").html(eContent);
 				 
-				 //메일 읽은시간 업데이트
-				/*  if(eRTime==""){
-					 $.ajax({
-						 url:"updateReadTime.do",
-						 data:{mailNo:mailNo},
-						 type:"post",
-						 success:function(data){
-						 }
-					 });
-				 } */
 			});
         </script>
         <!-- 메일 영역 -->
