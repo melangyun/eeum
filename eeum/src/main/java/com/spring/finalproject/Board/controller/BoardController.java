@@ -365,7 +365,7 @@ public class BoardController {
 			if(cutSEmp.contains(";")) {
 				String[] tempEmp = cutSEmp.split(";");
 				for(int i = 0 ; i < tempEmp.length ; i++) {
-					emp.add(tempEmp[i].substring(tempEmp[i].indexOf("(")+2, tempEmp[i].indexOf(")")-1));
+					emp.add(tempEmp[i].substring(tempEmp[i].indexOf("(")+2, tempEmp[i].indexOf(")")-1).trim());
 				}
 			}else {
 				emp.add(cutSEmp.substring(cutSEmp.indexOf("(")+1,cutSEmp.indexOf(")")).trim());

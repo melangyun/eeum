@@ -252,6 +252,11 @@ display: none;
 										if(confirm("'"+$("#mTitle").val()+"'에 정말로 불참하시겠습니까?")){
 											joinEmp = joinEmp.substring(0,joinEmp.length-1);
 			                				var myEmpno = "${loginEmp.empNo}";
+			                				var result = myEmpno.match(/;/g); 
+											if(result<2){
+												alert('죄송합니다. 최소 참여인은 1인입니다.\n회의실예약자에게 문의해주세요!');
+												return;
+											}
 			                				var temp = joinEmp.split(";");
 			                				joinEmp="";
 			                				for( var i in temp ){

@@ -188,7 +188,7 @@
                           <input type="hidden" class="empName" value="${m.empName}"><!--보낸사람  -->
                           <input type="hidden" class="empNo" value="${m.empNo}">
                           <input type="hidden" class="eTitle" value="${m.eTitle}">
-                          <input type="hidden" class="eContent" value="${m.eContent}">
+                          <input type="hidden" class="eContent" value='"${m.eContent}"'>
                           <input type="hidden" id="eRTime" class="eRTime" value="${m.eRTime}">
                           <input type="hidden" class="sendTime" value="${m.sendTime}">
                           <a class="mailDeatil" style="cursor: pointer;">${m.eTitle}</a>
@@ -285,7 +285,7 @@
 				var sendTime = $(this).siblings(".sendTime").val();
 				var eRTime = $(this).siblings(".eRTime").val();
 				var empNo = $(this).siblings(".empNo").val();
-				
+				eContent = eContent.substring(1,eContent.length-1);
 				 $("#replybtn").show();
   				 $("#empNo").val(empNo);
 				 $("#eTitle").text(eTitle);

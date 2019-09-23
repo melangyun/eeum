@@ -278,10 +278,6 @@ public class ApprovalController {
 	public ModelAndView insertApproval(@ModelAttribute Approval ap,ModelAndView mv,HttpSession session,
 								 @RequestParam(value="uploadFile",required= false)MultipartFile uploadFile,
 								HttpServletRequest request) {
-		Date last = ap.getA_v_last();
-		if(last!=null) {
-			
-		}
 		
 		ap.setApprovalEmp(insertMethod(ap.getApprovalEmp()));
 		if(!ap.gethEmp().equals("")) {
