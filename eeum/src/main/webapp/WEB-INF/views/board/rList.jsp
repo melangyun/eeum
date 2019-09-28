@@ -134,7 +134,6 @@ display: none;
 												
 											</c:forEach>
 											<c:forEach var="i" items="${join}">
-						        	    	console.log("${i.rDate}");
 											var temp = "${i.rDate}";
 											if(rDate==temp){
 												temp="${i.rTime}"
@@ -240,7 +239,6 @@ display: none;
 			                		var id = $("#id").val();
 			                		var rStatus = "Y";
 			                		var joinEmp = $("#joinEmp_hidden").val();
-			                		console.log(joinEmp);
 			                		
 			                		if(text=="예약 취소"){
 			                			if(confirm("'"+$("#mTitle").val()+"'를 정말로 취소하시겠습니까?")){
@@ -252,7 +250,7 @@ display: none;
 										if(confirm("'"+$("#mTitle").val()+"'에 정말로 불참하시겠습니까?")){
 											joinEmp = joinEmp.substring(0,joinEmp.length-1);
 			                				var myEmpno = "${loginEmp.empNo}";
-			                				var result = myEmpno.match(/;/g); 
+			                				var result = joinEmp.match(/;/g);
 											if(result<2){
 												alert('죄송합니다. 최소 참여인은 1인입니다.\n회의실예약자에게 문의해주세요!');
 												return;

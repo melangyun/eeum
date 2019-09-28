@@ -39,19 +39,19 @@
 
 	<!-- 메인레버 -->
 	<div id="wrapper">
-		<!-- 사이드바 -->
+	<%-- 	<!-- 사이드바 -->
 		<jsp:include page="/WEB-INF/views/common/sidebar.jsp" flush="false"></jsp:include>
 		<!-- 상단바 -->
 		<jsp:include page="/WEB-INF/views/common/topbar.jsp" flush="false"></jsp:include>
-
+ --%>
 		<!-- 컨텐츠 영역 -->
-		<div class="container-fluid">
+		<!-- <div class="container-fluid"> -->
 			<div class="text-center">
             <div class="error mx-auto" data-text="404">404</div>
             <p class="lead text-gray-800 mb-5">Page Not Found</p>
             <p class="text-gray-500 mb-0">서비스 개선중입니다.....</p>
             <a href="home.do">← 홈으로 돌아가기</a>
-          </div>
+          <!-- </div> -->
 			
 
 
