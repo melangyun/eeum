@@ -14,24 +14,6 @@
 8. 조직도 및 구성원 검색 서비스
 9. 인사 관리자의 구성원 등록, 계급조정, 부서이동 등 개인정보 수정 서비스
 
-## 사용 STACK
-- Bootstrap
-- AJAX
-- JQuery
-- JSP
-- JSTL
-- JAVA
-- Spring
-- Mybatis
-- Oracle DB
-- Apache Maven
-- Apache Tomcat
-
-## 스키마 설계
-[ERD 보러가기(ERD Cloud Link)](https://www.erdcloud.com/d/bHGwDJMBXx8qSuuNf)
-![ERD img](https://user-images.githubusercontent.com/52588452/75664976-bba24a80-5cb6-11ea-80e3-017d520a20f9.png)
-
-
 ## 시연 GIF
 ### 회의실 예약
 회의실 예약 서비스 입니다.
@@ -79,6 +61,22 @@
 ![메일발송](https://user-images.githubusercontent.com/52588452/75670382-f957a100-5cbf-11ea-996f-a403fc230e1d.gif)
 ![메일답장](https://user-images.githubusercontent.com/52588452/75670375-f78ddd80-5cbf-11ea-8ab1-aa25fa004021.gif)
 
+## 사용 STACK
+- Bootstrap
+- AJAX
+- JQuery
+- JSP
+- JSTL
+- JAVA
+- Spring
+- Mybatis
+- Oracle DB
+- Apache Maven
+- Apache Tomcat
+
+## 스키마 설계
+[ERD 보러가기(ERD Cloud Link)](https://www.erdcloud.com/d/bHGwDJMBXx8qSuuNf)
+![ERD img](https://user-images.githubusercontent.com/52588452/75664976-bba24a80-5cb6-11ea-80e3-017d520a20f9.png)
 
 
 ## Future Upgrade Plan
